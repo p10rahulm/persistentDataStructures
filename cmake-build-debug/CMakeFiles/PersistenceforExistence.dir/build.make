@@ -56,27 +56,27 @@ include CMakeFiles/PersistenceforExistence.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/PersistenceforExistence.dir/flags.make
 
-CMakeFiles/PersistenceforExistence.dir/library.c.obj: CMakeFiles/PersistenceforExistence.dir/flags.make
-CMakeFiles/PersistenceforExistence.dir/library.c.obj: ../library.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\Projects\C_DSA\PersistenceforExistence\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PersistenceforExistence.dir/library.c.obj"
-	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\PersistenceforExistence.dir\library.c.obj   -c F:\Projects\C_DSA\PersistenceforExistence\library.c
+CMakeFiles/PersistenceforExistence.dir/persistence.c.obj: CMakeFiles/PersistenceforExistence.dir/flags.make
+CMakeFiles/PersistenceforExistence.dir/persistence.c.obj: ../persistence.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\Projects\C_DSA\PersistenceforExistence\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PersistenceforExistence.dir/persistence.c.obj"
+	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\PersistenceforExistence.dir\persistence.c.obj   -c F:\Projects\C_DSA\PersistenceforExistence\persistence.c
 
-CMakeFiles/PersistenceforExistence.dir/library.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PersistenceforExistence.dir/library.c.i"
-	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\Projects\C_DSA\PersistenceforExistence\library.c > CMakeFiles\PersistenceforExistence.dir\library.c.i
+CMakeFiles/PersistenceforExistence.dir/persistence.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/PersistenceforExistence.dir/persistence.c.i"
+	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\Projects\C_DSA\PersistenceforExistence\persistence.c > CMakeFiles\PersistenceforExistence.dir\persistence.c.i
 
-CMakeFiles/PersistenceforExistence.dir/library.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PersistenceforExistence.dir/library.c.s"
-	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\Projects\C_DSA\PersistenceforExistence\library.c -o CMakeFiles\PersistenceforExistence.dir\library.c.s
+CMakeFiles/PersistenceforExistence.dir/persistence.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/PersistenceforExistence.dir/persistence.c.s"
+	C:\msys-mingw\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\Projects\C_DSA\PersistenceforExistence\persistence.c -o CMakeFiles\PersistenceforExistence.dir\persistence.c.s
 
 # Object files for target PersistenceforExistence
 PersistenceforExistence_OBJECTS = \
-"CMakeFiles/PersistenceforExistence.dir/library.c.obj"
+"CMakeFiles/PersistenceforExistence.dir/persistence.c.obj"
 
 # External object files for target PersistenceforExistence
 PersistenceforExistence_EXTERNAL_OBJECTS =
 
-libPersistenceforExistence.a: CMakeFiles/PersistenceforExistence.dir/library.c.obj
+libPersistenceforExistence.a: CMakeFiles/PersistenceforExistence.dir/persistence.c.obj
 libPersistenceforExistence.a: CMakeFiles/PersistenceforExistence.dir/build.make
 libPersistenceforExistence.a: CMakeFiles/PersistenceforExistence.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=F:\Projects\C_DSA\PersistenceforExistence\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libPersistenceforExistence.a"

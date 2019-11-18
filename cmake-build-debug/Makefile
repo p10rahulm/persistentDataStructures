@@ -122,32 +122,32 @@ PersistenceforExistence/fast:
 	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/build
 .PHONY : PersistenceforExistence/fast
 
-library.obj: library.c.obj
+persistence.obj: persistence.c.obj
 
-.PHONY : library.obj
+.PHONY : persistence.obj
 
 # target to build an object file
-library.c.obj:
-	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/library.c.obj
-.PHONY : library.c.obj
+persistence.c.obj:
+	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/persistence.c.obj
+.PHONY : persistence.c.obj
 
-library.i: library.c.i
+persistence.i: persistence.c.i
 
-.PHONY : library.i
+.PHONY : persistence.i
 
 # target to preprocess a source file
-library.c.i:
-	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/library.c.i
-.PHONY : library.c.i
+persistence.c.i:
+	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/persistence.c.i
+.PHONY : persistence.c.i
 
-library.s: library.c.s
+persistence.s: persistence.c.s
 
-.PHONY : library.s
+.PHONY : persistence.s
 
 # target to generate assembly for a file
-library.c.s:
-	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/library.c.s
-.PHONY : library.c.s
+persistence.c.s:
+	$(MAKE) -f CMakeFiles\PersistenceforExistence.dir\build.make CMakeFiles/PersistenceforExistence.dir/persistence.c.s
+.PHONY : persistence.c.s
 
 # Help Target
 help:
@@ -158,9 +158,9 @@ help:
 	@echo ... rebuild_cache
 	@echo ... PersistenceforExistence
 	@echo ... edit_cache
-	@echo ... library.obj
-	@echo ... library.i
-	@echo ... library.s
+	@echo ... persistence.obj
+	@echo ... persistence.i
+	@echo ... persistence.s
 .PHONY : help
 
 

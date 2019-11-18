@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "F:/Projects/C_DSA/PersistenceforExistence/library.c" "F:/Projects/C_DSA/PersistenceforExistence/cmake-build-debug/CMakeFiles/PersistenceforExistence.dir/library.c.obj"
+  "F:/Projects/C_DSA/PersistenceforExistence/persistence.c" "F:/Projects/C_DSA/PersistenceforExistence/cmake-build-debug/CMakeFiles/PersistenceforExistence.dir/persistence.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

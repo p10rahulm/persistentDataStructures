@@ -1,2 +1,2 @@
-C:\msys-mingw\msys2\mingw64\bin\ar.exe qc libPersistenceforExistence.a  CMakeFiles/PersistenceforExistence.dir/library.c.obj
+C:\msys-mingw\msys2\mingw64\bin\ar.exe qc libPersistenceforExistence.a  CMakeFiles/PersistenceforExistence.dir/persistence.c.obj
 C:\msys-mingw\msys2\mingw64\bin\ranlib.exe libPersistenceforExistence.a

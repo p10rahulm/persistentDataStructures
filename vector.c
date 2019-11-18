@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "vector.h"
+#include "persistence.h"
+
 
 /* For the vector, we will allow operations
  * We will have the operations allowed as:
@@ -36,7 +39,7 @@ VersionNode* initialize_versions(int num_versions){
     for (int i = 0; i < num_versions; ++i) {
         versions[i].version_number = i;
         versions[i].description = (char*) calloc(100, sizeof(char));
-        versions[i].structure_head = NULL;
+        versions[i].structure_head = (void*) NULL;
         versions[i].time_of_last_access = time(0);
         versions[i].time_of_last_update = time(0);
         versions[i].parent_version_number = i;

@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PersistenceforExistence.dir/library.c.obj"
+  "CMakeFiles/PersistenceforExistence.dir/persistence.c.obj"
   "libPersistenceforExistence.a"
   "libPersistenceforExistence.pdb"
 )
