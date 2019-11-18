@@ -13,7 +13,6 @@
  * 3.modify
  *
  * Persistence would be through a version graph.
- *
 */
 
 typedef struct versionnode {
