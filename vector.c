@@ -49,9 +49,20 @@ typedef struct vector{
     void* elements_array;
 } Vector;
 
-PersistentDS* create_persistent_ds(int num_elements){
+PersistentDS* create_persistent_ds(int num_versions){
     PersistentDS* out =  calloc(1, sizeof(PersistentDS));
-    out->last_updated_version_number = 0;
-    out->versions = initialize_versions(num_elements);
+    out->last_updated_version_number = -1;
+    out->versions = initialize_versions(num_versions);
     return out;
 }
+
+PersistentDS* initialize_persistent_vector(int num_versions, int num_elements){
+    PersistentDS* initialized = create_persistent_ds(num_versions);
+    initialized->versions[0].description = "Starting Version";
+    initialized->versions[0].structure_head = (Vector*) calloc(1, sizeof(Vector));
+    initialized->versions[0].structure_head->num_elements = num_elements;
+    initialized->versions[0].structure_head->elements_array = calloc(num_elements, sizeof(int));
+    return initialized;
+
+}
+
