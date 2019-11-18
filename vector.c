@@ -16,7 +16,6 @@
  *
 */
 
-
 typedef struct versionnode {
     int version_number;
     time_t time_of_last_access;
