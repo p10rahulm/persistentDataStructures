@@ -21,18 +21,17 @@ typedef struct versionnode {
     time_t time_of_last_update;
     char* description;
     void* structure_head;
-    int parent_version_number; //we use parent node number to track parents in version tree. If no parent, then points to itself
+    //we use parent node number to track parents in version tree. If no parent, then points to itself
+    int parent_version_number;
 } VersionNode;
 
-typedef struct persistent_vector{
+typedef struct persistent_data_structure{
     int last_updated_version_number;
     VersionNode* versions;
-} PersistentVector;
+} PersistentDS;
 
 
 VersionNode* initialize_versions(int num_versions){
-    PersistentVector* vector =
-
     VersionNode* versions = (VersionNode*) calloc(num_versions,sizeof(VersionNode));
     for (int i = 0; i < num_versions; ++i) {
         versions[i].version_number = i;
@@ -50,6 +49,9 @@ typedef struct vector{
     void* elements_array;
 } Vector;
 
-PersistentVector* create_vector(int num_elements){
-    PersistentVector* out =  calloc(1,)
+PersistentDS* create_persistent_ds(int num_elements){
+    PersistentDS* out =  calloc(1, sizeof(PersistentDS));
+    out->last_updated_version_number = 0;
+    out->versions = initialize_versions(num_elements);
+    return out;
 }
