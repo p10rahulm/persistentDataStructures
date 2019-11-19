@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated>
-      <config projectName="PersistenceforExistence" targetName="PersistenceforExistence" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -12,20 +10,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65516817-5067-4be4-bf35-df5f5d66045c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.c" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.h" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.o" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bst.o" beforeDir="false" afterPath="$PROJECT_DIR$/bst.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cll.o" beforeDir="false" afterPath="$PROJECT_DIR$/cll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque.o" beforeDir="false" afterPath="$PROJECT_DIR$/deque.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dll.o" beforeDir="false" afterPath="$PROJECT_DIR$/dll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ll.o" beforeDir="false" afterPath="$PROJECT_DIR$/ll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.o" beforeDir="false" afterPath="$PROJECT_DIR$/map.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/persistence.out" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queue.o" beforeDir="false" afterPath="$PROJECT_DIR$/queue.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rbtree.o" beforeDir="false" afterPath="$PROJECT_DIR$/rbtree.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stack.o" beforeDir="false" afterPath="$PROJECT_DIR$/stack.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_bst.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_bst.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_bst.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_bst.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_cll.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_cll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_cll.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_cll.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_deque.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_deque.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_deque.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_deque.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_dll.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_dll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_dll.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_dll.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_ll.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_ll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_ll.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_ll.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_map.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_map.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_map.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_map.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_queue.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_queue.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_queue.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_queue.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_rbtree.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_rbtree.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_rbtree.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_rbtree.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_stack.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_stack.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_stack.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_stack.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/vector.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/vector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/vector.o" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +53,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -73,13 +89,6 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="PersistenceforExistence" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PersistenceforExistence" TARGET_NAME="PersistenceforExistence" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="65516817-5067-4be4-bf35-df5f5d66045c" name="Default Changelist" comment="" />
@@ -90,7 +99,7 @@
       <workItem from="1572961033520" duration="859000" />
       <workItem from="1573223550039" duration="1607000" />
       <workItem from="1573269752040" duration="17298000" />
-      <workItem from="1574051524564" duration="19554000" />
+      <workItem from="1574051524564" duration="19874000" />
     </task>
     <servers />
   </component>

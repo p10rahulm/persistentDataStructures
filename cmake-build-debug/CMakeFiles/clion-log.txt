@@ -1,4 +1,1 @@
-C:\Users\rmaddy\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\192.7142.39\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" F:\Projects\C_DSA\PersistenceforExistence
--- Configuring done
--- Generating done
--- Build files have been written to: F:/Projects/C_DSA/PersistenceforExistence/cmake-build-debug
+CMakeLists.txt not found in F:\Projects\C_DSA\PersistenceforExistence Select CMakeLists.txt file...
