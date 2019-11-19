@@ -8,9 +8,10 @@
 
 /* For the vector, we will allow operations
  * We will have the operations allowed as:
- * 1.retrieve
- * 2.store
- * 3.modify
+ * 1.Create
+ * 2.Read
+ * 3.Update
+ * 4.Delete
  *
  * Persistence would be through a version graph.
 */
@@ -132,11 +133,14 @@ void versionCopy(PersistentDS *input, int srcVersion, int destVersion) {
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
 
     current_structure->num_elements = last_structure->num_elements;
-    current_structure->last_index = last_structure->last_index + 1;
+    current_structure->last_index = last_structure->last_index;
     current_structure->elements_array = (int *) calloc(last_structure->num_elements, sizeof(int));
     int *current_elem_array = current_structure->elements_array;
     int *last_elem_array = last_structure->elements_array;
-    memcpy(current_structure->elements_array, last_structure->elements_array, sizeof(last_structure->elements_array));
+    for (int i = 0; i <=last_structure->last_index ; ++i) {
+        current_elem_array[i] =last_elem_array[i];
+    }
+    // memcpy(current_structure->elements_array, last_structure->elements_array, sizeof(last_structure->elements_array));
 
 }
 
@@ -160,6 +164,7 @@ PersistentDS *vector_add(PersistentDS *input, int element, int srcVersion) {
     versionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
+    current_structure->last_index++;
     current_elem_array[current_structure->last_index] = element;
 }
 
@@ -178,7 +183,7 @@ int vector_read(PersistentDS *input, int element_index, int srcVersion) {
     return elem_array[element_index];
 }
 
-PersistentDS *vector_update(PersistentDS *input, int index_to_update, int element, int srcVersion) {
+PersistentDS *vector_update(PersistentDS *input, int index_to_update, int updated_element, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
         return input;
@@ -188,10 +193,17 @@ PersistentDS *vector_update(PersistentDS *input, int index_to_update, int elemen
         return input;
     }
 
+    Vector *source_structure = input->versions[srcVersion].structure_head;
+    if (source_structure->last_index > index_to_update || index_to_update < 0) {
+        printf("Please check your index number\n");
+        return input;
+    }
+
     versionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
-    current_elem_array[current_structure->last_index] = element;
+
+    current_elem_array[index_to_update] = updated_element;
 
 }
 
@@ -208,7 +220,10 @@ void main() {
     vector_add(vector, 31, 1);
     print_version(vector, 3);
     printf("The third element of version number 3 is %d\n", vector_read(vector, 2, 3));
-
+    vector_add(vector, 41, 3);
+    print_version(vector, 4);
+    vector_update(vector,3,51,4);
+    print_version(vector, 5);
 
 }
 
