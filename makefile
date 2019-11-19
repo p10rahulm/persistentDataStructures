@@ -1,39 +1,42 @@
 all : persistence.out test_bst.out test_cll.out test_deque.out test_dll.out test_ll.out test_map.out test_queue.out test_rbtree.out test_stack.out test_vector.out
 
-persistence.out:  persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
-	gcc -o persistence.out persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
+persistence.out:  main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
+	gcc -o persistence.out main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
 
 test_bst.out: test_bst.o bst.o
-	gcc -o test_bst.out test_bst.o bst.o
+	gcc -o test_bst.out test_bst.o bst.o persistence.o
 
 test_cll.out: test_cll.o cll.o
-	gcc -o test_cll.out test_cll.o cll.o
+	gcc -o test_cll.out test_cll.o cll.o persistence.o
 
 test_deque.out: test_deque.o deque.o
-	gcc -o test_deque.out test_deque.o deque.o
+	gcc -o test_deque.out test_deque.o deque.o persistence.o
 
 test_dll.out: test_dll.o dll.o
-	gcc -o test_dll.out test_dll.o dll.o
+	gcc -o test_dll.out test_dll.o dll.o persistence.o
 
 test_ll.out: test_ll.o ll.o
-	gcc -o test_ll.out test_ll.o ll.o
+	gcc -o test_ll.out test_ll.o ll.o persistence.o
 
 test_map.out: test_map.o map.o
-	gcc -o test_map.out test_map.o map.o
+	gcc -o test_map.out test_map.o map.o persistence.o
 
 test_queue.out: test_queue.o queue.o
-	gcc -o test_queue.out test_queue.o queue.o
+	gcc -o test_queue.out test_queue.o queue.o persistence.o
 
 test_rbtree.out: test_rbtree.o rbtree.o
-	gcc -o test_rbtree.out test_rbtree.o rbtree.o
+	gcc -o test_rbtree.out test_rbtree.o rbtree.o persistence.o
 
 test_stack.out: test_stack.o stack.o
-	gcc -o test_stack.out test_stack.o stack.o
+	gcc -o test_stack.out test_stack.o stack.o persistence.o
 
 test_vector.out: test_vector.o vector.o
-	gcc -o test_vector.out test_vector.o vector.o
+	gcc -o test_vector.out test_vector.o vector.o persistence.o
 
 # now for the dependancies for the above executables
+main.o: main.c main.h
+	gcc -c main.c
+
 persistence.o: persistence.c persistence.h
 	gcc -c persistence.c
 

@@ -1,64 +1,9 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "vector.h"
-#include "persistence.h"
 
 
-/* For the vector, we will allow operations
- * We will have the operations allowed as:
- * 1.Create
- * 2.Read
- * 3.Update
- * 4.Delete
- *
- * Persistence would be through a version graph.
-*/
-
-typedef struct versionnode {
-    int version_number;
-    time_t time_of_last_access;
-    time_t time_of_last_update;
-    char *description;
-    void *structure_head;
-    //we use parent node number to track parents in version tree. If no parent, then points to itself
-    int parent_version_number;
-} VersionNode;
-
-typedef struct persistent_data_structure {
-    int last_updated_version_number;
-    int num_versions;
-    VersionNode *versions;
-} PersistentDS;
-
-
-VersionNode *initialize_versions(int num_versions) {
-    VersionNode *versions = (VersionNode *) calloc(num_versions, sizeof(VersionNode));
-    for (int i = 0; i < num_versions; ++i) {
-        versions[i].version_number = i;
-        versions[i].description = calloc(100, sizeof(char));
-        versions[i].structure_head = (void *) NULL;
-        versions[i].time_of_last_access = time(0);
-        versions[i].time_of_last_update = time(0);
-        versions[i].parent_version_number = i;
-    }
-    return versions;
-}
-
-typedef struct vector {
-    int num_elements;
-    int last_index;
-    void *elements_array;
-} Vector;
-
-PersistentDS *create_persistent_ds(int num_versions) {
-    PersistentDS *out = calloc(1, sizeof(PersistentDS));
-    out->last_updated_version_number = -1;
-    out->num_versions = num_versions;
-    out->versions = initialize_versions(num_versions);
-    return out;
-}
 
 PersistentDS *initialize_persistent_vector(int num_versions, int num_elements) {
     PersistentDS *initialized = create_persistent_ds(num_versions);
@@ -81,25 +26,12 @@ PersistentDS *initialize_with_element(int element, int num_versions, int num_ele
     return out;
 }
 
-void printtime(time_t inputtime) {
-    char buffer[26];
-    struct tm *tm_info;
-    tm_info = localtime(&inputtime);
-    strftime(buffer, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-    puts(buffer);
-}
 
-void printVersionNodeDetails(VersionNode *inputVersion) {
-    printf("Version Number : %d\n", inputVersion->version_number);
-    printf("Description : %s\n", inputVersion->description);
-    printf("Time of Last Update : ", inputVersion->time_of_last_update);
-    printtime(inputVersion->time_of_last_update);
-    printf("Time of Last Access : ", inputVersion->time_of_last_access);
-    printtime(inputVersion->time_of_last_access);
-    printf("Parent Version Number : %d\n", inputVersion->parent_version_number);
-}
-
-void print_version(PersistentDS *input, int version_num) {
+void print_vector(PersistentDS *input, int version_num) {
+    if(version_num<0 || version_num > input->last_updated_version_number){
+        printf("Please check version to print. The suggested version no: %d does not exist\n",version_num);
+        return;
+    }
     int last_updated_version = input->last_updated_version_number;
     printf("\n--------------------------------------------------------------------------------\n");
     printf("Last Updated Version Num = %d\n", last_updated_version);
@@ -119,7 +51,7 @@ void print_version(PersistentDS *input, int version_num) {
 }
 
 
-void versionCopy(PersistentDS *input, int srcVersion, int destVersion) {
+void vectorVersionCopy(PersistentDS *input, int srcVersion, int destVersion) {
     input->last_updated_version_number++;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
@@ -145,23 +77,23 @@ void versionCopy(PersistentDS *input, int srcVersion, int destVersion) {
 }
 
 
-PersistentDS *vector_add(PersistentDS *input, int element, int srcVersion) {
+void vector_add(PersistentDS *input, int element, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
-        return input;
+        return;
     }
 
     Vector *last_structure = input->versions[srcVersion].structure_head;
     if (last_structure->num_elements == last_structure->last_index + 1) {
         printf("The Vector is full. You cannot add more elements. Please increase the array size, or delete some elements and retry");
-        return input;
+        return;
     }
     if (srcVersion > input->last_updated_version_number) {
         printf("The version you want to change does not exist");
-        return input;
+        return;
     }
 
-    versionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
     current_structure->last_index++;
@@ -183,47 +115,54 @@ int vector_read(PersistentDS *input, int element_index, int srcVersion) {
     return elem_array[element_index];
 }
 
-PersistentDS *vector_update(PersistentDS *input, int index_to_update, int updated_element, int srcVersion) {
+void vector_update(PersistentDS *input, int index_to_update, int updated_element, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
-        return input;
+        return;
     }
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
-        return input;
+        return;
     }
 
     Vector *source_structure = input->versions[srcVersion].structure_head;
-    if (source_structure->last_index > index_to_update || index_to_update < 0) {
+    if (source_structure->last_index < index_to_update || index_to_update < 0) {
         printf("Please check your index number\n");
-        return input;
+        return;
     }
 
-    versionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
 
     current_elem_array[index_to_update] = updated_element;
-
 }
 
+void vector_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
+    if (input->num_versions == input->last_updated_version_number + 1) {
+        printf("You have reached the limit of number of versions you can create");
+        return;
+    }
+    if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
+        printf("The version you want to change does not exist");
+        return;
+    }
 
-void main() {
-    int num_versions = 100;
-    int num_elements = 5;
-    PersistentDS *vector = initialize_with_element(11, num_versions, num_elements);
-    print_version(vector, 0);
-    vector_add(vector, 21, 0);
-    print_version(vector, 1);
-    vector_add(vector, 31, 0);
-    print_version(vector, 2);
-    vector_add(vector, 31, 1);
-    print_version(vector, 3);
-    printf("The third element of version number 3 is %d\n", vector_read(vector, 2, 3));
-    vector_add(vector, 41, 3);
-    print_version(vector, 4);
-    vector_update(vector,3,51,4);
-    print_version(vector, 5);
+    Vector *source_structure = input->versions[srcVersion].structure_head;
+    if (source_structure->last_index < index_to_delete || index_to_delete < 0) {
+        printf("Please check your index number\n");
+        return;
+    }
 
+    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
+    int *current_elem_array = current_structure->elements_array;
+
+    for (int i = index_to_delete; i < current_structure->last_index; ++i) {
+        current_elem_array[i] = current_elem_array[i+1];
+    }
+    current_elem_array[current_structure->last_index] =0;
+    current_structure->last_index--;
 }
+
 

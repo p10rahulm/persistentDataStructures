@@ -12,9 +12,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65516817-5067-4be4-bf35-df5f5d66045c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence.c" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence.h" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence.o" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence.out" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/vector.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/vector.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/vector.o" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,6 +44,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -44,6 +55,11 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Projects\C_DSA\PersistenceforExistence" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -74,7 +90,7 @@
       <workItem from="1572961033520" duration="859000" />
       <workItem from="1573223550039" duration="1607000" />
       <workItem from="1573269752040" duration="17298000" />
-      <workItem from="1574051524564" duration="16001000" />
+      <workItem from="1574051524564" duration="19554000" />
     </task>
     <servers />
   </component>
