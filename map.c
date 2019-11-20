@@ -16,7 +16,7 @@ Map *init_map(int num_buckets) {
     return out;
 }
 
-mapElem *createNode(int elemKey, int elemVal, mapElem *nextElem) {
+mapElem *createMapElem(int elemKey, int elemVal, mapElem *nextElem) {
     mapElem *out = calloc(1, sizeof(mapElem));
     out->element_key = elemKey;
     out->element_value = elemVal;
@@ -38,13 +38,13 @@ PersistentDS *initialize_persistent_hashmap(int num_versions, int num_buckets) {
 
 void add_to_hash(Map *structure, int bucket_num, int elemKey, int elemVal) {
     structure->buckets[bucket_num].head;
-    mapElem *newnode = createNode(elemKey, elemVal, structure->buckets[bucket_num].head);
+    mapElem *newnode = createMapElem(elemKey, elemVal, structure->buckets[bucket_num].head);
     structure->buckets[bucket_num].head = newnode;
     structure->buckets[bucket_num].num_in_bucket++;
     return;
 }
 
-PersistentDS *initialize__map_with_element(int elemKey, int elemVal, int num_versions, int num_buckets) {
+PersistentDS *initialize_map_with_element(int elemKey, int elemVal, int num_versions, int num_buckets) {
     PersistentDS *out = initialize_persistent_hashmap(num_versions, num_buckets);
     Map *structure = out->versions[0].structure_head;
     int bucket_num = getBucketNum(elemKey, num_buckets);
@@ -54,13 +54,14 @@ PersistentDS *initialize__map_with_element(int elemKey, int elemVal, int num_ver
 }
 
 
-void mapVersionCopy(PersistentDS *input, int srcVersion, int destVersion) {
+void mapVersionCopy(PersistentDS *input, int srcVersion) {
     input->last_updated_version_number++;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
     input->versions[input->last_updated_version_number].time_of_last_access = time(0);
-    snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d", destVersion);
+    snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d",
+             input->last_updated_version_number);
 
 
     Map *last_structure = input->versions[srcVersion].structure_head;
@@ -76,7 +77,7 @@ void mapVersionCopy(PersistentDS *input, int srcVersion, int destVersion) {
         int index = 0;
         if (!lastRover) { continue; }
         while (lastRover) {
-            mapElem *currNode = createNode(lastRover->element_key, lastRover->element_value, NULL);
+            mapElem *currNode = createMapElem(lastRover->element_key, lastRover->element_value, NULL);
             if (index == 0) {
                 current_structure->buckets[i].head = currNode;
             } else {
@@ -128,7 +129,7 @@ void map_add(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
         printf("You have reached the limit of number of versions you can create");
         return;
     }
-    if (srcVersion > input->last_updated_version_number) {
+    if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
         return;
     }
@@ -152,7 +153,7 @@ void map_add(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
         return;
     }
 
-    mapVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    mapVersionCopy(input, srcVersion);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_hash(current_structure, bucket_index, elemKey, elemVal);
 
@@ -172,6 +173,7 @@ int map_read(PersistentDS *input, int elemKey, int srcVersion) {
     mapElem *rover = structure->buckets[bucket_num].head;
     while (rover) {
         if (rover->element_key == elemKey) {
+            input->versions->time_of_last_access = time(0);
             return rover->element_value;
         }
         rover = rover->next;
@@ -201,16 +203,16 @@ void map_update(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
     mapElem *rover = structure->buckets[bucket_num].head;
     while (rover) {
         if (rover->element_key == elemKey) {
-            found =1;
+            found = 1;
             break;
         }
         rover = rover->next;
     }
-    if(!found){
+    if (!found) {
         printf("Please check the key entered. It wasn't found in the map.\n");
         return;
     }
-    mapVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    mapVersionCopy(input, srcVersion);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
 
     rover = current_structure->buckets[bucket_num].head;
@@ -244,25 +246,25 @@ void map_delete(PersistentDS *input, int elemKeyToDelete, int srcVersion) {
     mapElem *rover = structure->buckets[bucket_num].head;
     while (rover) {
         if (rover->element_key == elemKeyToDelete) {
-            found =1;
+            found = 1;
             break;
         }
         rover = rover->next;
     }
-    if(!found){
+    if (!found) {
         printf("Please check the key entered. It wasn't found in the map.\n");
         return;
     }
 
 
-    mapVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    mapVersionCopy(input, srcVersion);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
     rover = current_structure->buckets[bucket_num].head;
     mapElem *roverlast = NULL;
 
     while (rover) {
         if (rover->element_key == elemKeyToDelete) {
-            if(!roverlast){
+            if (!roverlast) {
                 current_structure->buckets[bucket_num].head = rover->next;
             } else {
                 roverlast->next = rover->next;

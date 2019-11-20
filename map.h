@@ -19,7 +19,7 @@ typedef struct map {
     Bucket *buckets;
 } Map;
 
-PersistentDS *initialize__map_with_element(int elemKey, int elemVal, int num_versions, int num_buckets);
+PersistentDS *initialize_map_with_element(int elemKey, int elemVal, int num_versions, int num_buckets);
 void print_hash(PersistentDS *input, int version_num);
 void map_add(PersistentDS *input, int elemKey, int elemVal, int srcVersion);
 int map_read(PersistentDS *input, int elemKey, int srcVersion);

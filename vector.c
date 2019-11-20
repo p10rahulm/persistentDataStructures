@@ -51,13 +51,13 @@ void print_vector(PersistentDS *input, int version_num) {
 }
 
 
-void vectorVersionCopy(PersistentDS *input, int srcVersion, int destVersion) {
+void vectorVersionCopy(PersistentDS *input, int srcVersion) {
     input->last_updated_version_number++;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
     input->versions[input->last_updated_version_number].time_of_last_access = time(0);
-    snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d", destVersion);
+    snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d", input->last_updated_version_number);
 
     input->versions[input->last_updated_version_number].structure_head = (Vector *) calloc(1, sizeof(Vector));
 
@@ -88,12 +88,12 @@ void vector_add(PersistentDS *input, int element, int srcVersion) {
         printf("The Vector is full. You cannot add more elements. Please increase the array size, or delete some elements and retry");
         return;
     }
-    if (srcVersion > input->last_updated_version_number) {
+    if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
         return;
     }
 
-    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    vectorVersionCopy(input, srcVersion);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
     current_structure->last_index++;
@@ -112,6 +112,7 @@ int vector_read(PersistentDS *input, int element_index, int srcVersion) {
         return 0;
     }
     int *elem_array = current_structure->elements_array;
+    input->versions->time_of_last_access = time(0);
     return elem_array[element_index];
 }
 
@@ -131,7 +132,7 @@ void vector_update(PersistentDS *input, int index_to_update, int updated_element
         return;
     }
 
-    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    vectorVersionCopy(input, srcVersion);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
 
@@ -154,7 +155,7 @@ void vector_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
         return;
     }
 
-    vectorVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
+    vectorVersionCopy(input, srcVersion);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
 

@@ -14,13 +14,11 @@
       <change beforePath="$PROJECT_DIR$/map.c" beforeDir="false" afterPath="$PROJECT_DIR$/map.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.h" beforeDir="false" afterPath="$PROJECT_DIR$/map.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.o" beforeDir="false" afterPath="$PROJECT_DIR$/map.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.out" beforeDir="false" afterPath="$PROJECT_DIR$/persistence.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stack.c" beforeDir="false" afterPath="$PROJECT_DIR$/stack.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_map.c" beforeDir="false" afterPath="$PROJECT_DIR$/test_map.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_map.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_map.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_map.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_map.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_vector.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector.o" beforeDir="false" afterPath="$PROJECT_DIR$/vector.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/vector.c" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +75,7 @@
       <workItem from="1572961033520" duration="859000" />
       <workItem from="1573223550039" duration="1607000" />
       <workItem from="1573269752040" duration="17298000" />
-      <workItem from="1574051524564" duration="35323000" />
+      <workItem from="1574051524564" duration="38939000" />
     </task>
     <servers />
   </component>

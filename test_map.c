@@ -7,7 +7,7 @@
 int main(void) {
     int num_versions = 100;
     int num_buckets = 7;
-    PersistentDS *persistentMap = initialize__map_with_element(5, 25, 100, 7);
+    PersistentDS *persistentMap = initialize_map_with_element(5, 25, 100, 7);
     print_hash(persistentMap, 0);
     map_add(persistentMap, 10,20, 0);
     print_hash(persistentMap, 1);
@@ -35,7 +35,19 @@ int main(void) {
     //Update the map
     map_update(persistentMap,5,30,3);
     print_hash(persistentMap, 4);
-
-
+    //non existent key
+    map_update(persistentMap,11,20,3);
+    //Bad Version
+    print_hash(persistentMap, 5);
+    //Delete
+    map_delete(persistentMap,250,4);
+    print_hash(persistentMap, 5);
+    map_delete(persistentMap,10,5);
+    print_hash(persistentMap, 6);
+    map_delete(persistentMap,5,6);
+    print_hash(persistentMap, 7);
+    //Now everything is deleted. Try deleting more stuff
+    map_delete(persistentMap,5,7);
+    print_hash(persistentMap, 8);
 
 }
