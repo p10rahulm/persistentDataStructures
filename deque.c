@@ -4,18 +4,6 @@
 #include <stdlib.h>
 #include "deque.h"
 
-typedef struct dequeuenode {
-    int value;
-    struct queuenode *next;
-    struct queuenode *prev;
-} DeQueueNode;
-
-typedef struct dequeue {
-    int num_elements;
-    DeQueueNode *front;
-    DeQueueNode *rear;
-} DeQueue;
-
 DeQueue *init_dequeue() {
     DeQueue *out = (DeQueue *) calloc(1, sizeof(DeQueue));
     out->num_elements = 0;
@@ -25,10 +13,10 @@ DeQueue *init_dequeue() {
 }
 
 DeQueueNode *createDeQueueElem(int elemVal, DeQueueNode *nextDQElem, DeQueueNode *prevDQElem) {
-    DeQueueNode *out = calloc(1, sizeof(QueueNode));
+    DeQueueNode *out = calloc(1, sizeof(DeQueueNode));
     out->value = elemVal;
     out->next = nextDQElem;
-    out->prev = prevDQElem
+    out->prev = prevDQElem;
     return out;
 }
 
@@ -120,10 +108,10 @@ void print_dequeue(PersistentDS *input, int version_num) {
 
     DeQueueNode *rover = structure->front;
     if (rover) {
-        printf("Queue Elements:\t\t");
+        printf("DeQueue Elements:");
     }
     while (rover) {
-        printf("->\t<-%d", rover->value);
+        printf("\t%d\t", rover->value);
         rover = rover->next;
     }
     printf("\n--------------------------------------------------------------------------------\n");
@@ -179,7 +167,11 @@ int dq_dequeue_front(PersistentDS *input, int srcVersion) {
     current_structure->num_elements--;
     DeQueueNode *currfront = current_structure->front;
     current_structure->front = currfront->next;
-    if (!current_structure->front) { current_structure->rear = NULL; }
+    if (!current_structure->front) {
+        current_structure->rear = NULL;
+    } else{
+        current_structure->front->prev = NULL;
+    }
     int out = currfront->value;
     free(currfront);
     return out;
@@ -207,13 +199,17 @@ int dq_dequeue_rear(PersistentDS *input, int srcVersion) {
 
     DeQueueNode *curr_rear = current_structure->rear;
     current_structure->rear = curr_rear->prev;
-    if (!current_structure->rear) { current_structure->front = NULL; }
+    if (!current_structure->rear) {
+        current_structure->front = NULL;
+    } else{
+        current_structure->rear->next = NULL;
+    }
     int out = curr_rear->value;
     free(curr_rear);
     return out;
 }
 
-int dequeue_front(PersistentDS *input, int srcVersion) {
+int dq_front(PersistentDS *input, int srcVersion) {
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
         return INT_MIN;
@@ -228,7 +224,7 @@ int dequeue_front(PersistentDS *input, int srcVersion) {
 }
 
 
-int dequeue_rear(PersistentDS *input, int srcVersion) {
+int dq_rear(PersistentDS *input, int srcVersion) {
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
         return INT_MIN;
