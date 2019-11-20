@@ -3,24 +3,25 @@
 #include <stdlib.h>
 #include "map.h"
 
-typedef struct map_element{
-    int element;
-    struct map_element* next;
+typedef struct map_element {
+    int element_key;
+    int element_value
+    struct map_element *next;
 } mapElem;
 
-typedef struct bucket{
+typedef struct bucket {
     int num_in_bucket;
-    mapElem* head;
+    mapElem *head;
 } Bucket;
 
-typedef struct map{
+typedef struct map {
     int num_buckets;
-    Bucket* buckets;
+    Bucket *buckets;
 } Map;
 
 
-Map* init_map(int num_buckets){
-    Map* out = (Map*) calloc(1, sizeof(Map));
+Map *init_map(int num_buckets) {
+    Map *out = (Map *) calloc(1, sizeof(Map));
     out->num_buckets = num_buckets;
     out->buckets = calloc(num_buckets, sizeof(Bucket));
     for (int i = 0; i < num_buckets; ++i) {
@@ -30,50 +31,42 @@ Map* init_map(int num_buckets){
     return out;
 }
 
-
-PersistentDS *initialize_persistent_vector(int num_versions, int num_elements) {
-    PersistentDS *initialized = create_persistent_ds(num_versions);
-    snprintf(initialized->versions[0].description, 100, "Base Version number: %d", 0);
-    initialized->versions[0].structure_head = (Vector *) calloc(1, sizeof(Vector));
-    Vector *structure = initialized->versions[0].structure_head;
-    structure->num_elements = num_elements;
-    structure->last_index = -1;
-    structure->elements_array = calloc(num_elements, sizeof(int));
-    return initialized;
-}
-
-PersistentDS *initialize_with_element(int element, int num_versions, int num_elements) {
-    PersistentDS *out = initialize_persistent_vector(num_versions, num_elements);
-    Vector *structure = out->versions[0].structure_head;
-    int *elements_array = structure->elements_array;
-    elements_array[0] = element;
-    structure->last_index = 0;
-    out->last_updated_version_number = 0;
+mapElem *createNode(int elemKey, int elemVal, mapElem *nextElem) {
+    mapElem *out = calloc(1, sizeof(mapElem));
+    out->element_key = elemKey;
+    out->element_value = elemVal;
+    out->next = nextElem;
     return out;
 }
 
+int getBucketNum(int elemVal, int numBuckets) {
+    return elemVal % numBuckets;
+}
 
-void print_vector(PersistentDS *input, int version_num) {
-    if(version_num<0 || version_num > input->last_updated_version_number){
-        printf("Please check version to print. The suggested version no: %d does not exist\n",version_num);
-        return;
-    }
-    int last_updated_version = input->last_updated_version_number;
-    printf("\n--------------------------------------------------------------------------------\n");
-    printf("Last Updated Version Num = %d\n", last_updated_version);
-    if (version_num > last_updated_version) { printf("So many versions do not exist\n"); }
-    VersionNode *requiredVersion = &(input->versions[version_num]);
-    printVersionNodeDetails(requiredVersion);
-    Vector *structure = requiredVersion->structure_head;
-    int num_elements_in_array = structure->num_elements;
-    printf("Num Elements in Array: %d\n", num_elements_in_array);
-    int lastindex = structure->last_index;
-    printf("Last Index Updated in Array: %d\n", lastindex);
-    int *elements_array = structure->elements_array;
-    for (int i = 0; i < num_elements_in_array; ++i) {
-        printf("%d\t", elements_array[i]);
-    }
-    printf("\n--------------------------------------------------------------------------------\n");
+
+PersistentDS *initialize_persistent_hashmap(int num_versions, int num_buckets) {
+    PersistentDS *initialized = create_persistent_ds(num_versions);
+    snprintf(initialized->versions[0].description, 100, "Base Version number: %d", 0);
+    initialized->versions[0].structure_head = init_map(
+    int num_buckets);
+    return initialized;
+}
+
+void add_to_hash(Map *structure, int bucket_num, int elemKey, int elemVal) {
+    structure->buckets[bucket_num].head;
+    mapElem *newnode = createNode(elemKey, elemVal, structure->buckets[bucket_num].head)
+    structure->buckets[bucket_num].head = newnode;
+    structure->buckets[bucket_num].num_in_bucket++;
+    return;
+}
+
+PersistentDS *initialize_with_element(int elemKey, int elemVal, int num_versions, int num_buckets) {
+    PersistentDS *out = initialize_persistent_hashmap(num_versions, num_elements);
+    Map *structure = out->versions[0].structure_head;
+    int bucket_num = getBucketNum(element, num_buckets);
+    add_to_hash(structure, bucket_num, elemKey, elemVal)
+    out->last_updated_version_number = 0;
+    return out;
 }
 
 
@@ -85,21 +78,64 @@ void vectorVersionCopy(PersistentDS *input, int srcVersion, int destVersion) {
     input->versions[input->last_updated_version_number].time_of_last_access = time(0);
     snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d", destVersion);
 
-    input->versions[input->last_updated_version_number].structure_head = (Vector *) calloc(1, sizeof(Vector));
 
-    Vector *last_structure = input->versions[srcVersion].structure_head;
-    Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
+    Map *last_structure = input->versions[srcVersion].structure_head;
+    input->versions[input->last_updated_version_number].structure_head = init_map(last_structure->num_buckets);
+    Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
 
-    current_structure->num_elements = last_structure->num_elements;
-    current_structure->last_index = last_structure->last_index;
-    current_structure->elements_array = (int *) calloc(last_structure->num_elements, sizeof(int));
-    int *current_elem_array = current_structure->elements_array;
-    int *last_elem_array = last_structure->elements_array;
-    for (int i = 0; i <=last_structure->last_index ; ++i) {
-        current_elem_array[i] =last_elem_array[i];
+    current_structure->num_buckets = last_structure->num_buckets;
+    for (int i = 0; i < current_structure->num_buckets; ++i) {
+        current_structure->buckets[i].num_in_bucket = last_structure->buckets[i].num_in_bucket;
+        mapElem* lastRover = last_structure->buckets[i].head;
+        mapElem* currNode,currPrev;
+
+        int index = 0;
+        if(!lastRover){ continue;}
+        while(lastRover){
+            mapElem* currNode = createNode(lastRover->element_key,lastRover->element_value,NULL);
+            if(index==0){
+                current_structure->buckets[i].head = currNode;
+            } else{
+                currPrev.next = currNode;
+            }
+            currPrev = currNode;
+            index++;
+            lastRover = lastRover->next;
+        }
     }
-    // memcpy(current_structure->elements_array, last_structure->elements_array, sizeof(last_structure->elements_array));
+}
 
+
+void print_hash(PersistentDS *input, int version_num) {
+    if (version_num < 0 || version_num > input->last_updated_version_number) {
+        printf("Please check version to print. The suggested version no: %d does not exist\n", version_num);
+        return;
+    }
+    int last_updated_version = input->last_updated_version_number;
+    printf("\n--------------------------------------------------------------------------------\n");
+    printf("Last Updated Version Num = %d\n", last_updated_version);
+    if (version_num > last_updated_version) { printf("So many versions do not exist\n"); }
+
+
+    VersionNode *requiredVersion = &(input->versions[version_num]);
+    printVersionNodeDetails(requiredVersion);
+
+
+    Map *structure = requiredVersion->structure_head;
+
+    int num_buckets = structure->num_buckets;
+    printf("Num Buckets: %d\n", num_buckets);
+
+    for (int i = 0; i < num_buckets; ++i) {
+        mapElem *rover = structure->buckets[i].head;
+        printf("\nBucketNum: %d", i);
+        if(!rover){ continue;}
+        while (rover) {
+            printf("(key=%d,val=%d)\t", rover->element_key, rover->element_value);
+            rover = rover->next;
+        }
+    }
+    printf("\n--------------------------------------------------------------------------------\n");
 }
 
 
@@ -185,9 +221,9 @@ void vector_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
     int *current_elem_array = current_structure->elements_array;
 
     for (int i = index_to_delete; i < current_structure->last_index; ++i) {
-        current_elem_array[i] = current_elem_array[i+1];
+        current_elem_array[i] = current_elem_array[i + 1];
     }
-    current_elem_array[current_structure->last_index] =0;
+    current_elem_array[current_structure->last_index] = 0;
     current_structure->last_index--;
 }
 
