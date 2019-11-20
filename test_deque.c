@@ -46,6 +46,7 @@ int main(void) {
             print_dequeue(persistentDeQueue,version+1);
         }
     }
+
     //Test Dequeue from Rear. First reuse version 6
     dq_enqueue_front(persistentDeQueue,61,6);
     print_dequeue(persistentDeQueue,12);
