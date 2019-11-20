@@ -14,15 +14,15 @@ StackNode* createStackNode(int elemVal, StackNode* nextElem) {
     return out;
 }
 
-PersistentDS *initialize_persistent_stack(int num_versions, int num_buckets) {
+PersistentDS *initialize_persistent_stack(int num_versions) {
     PersistentDS *initialized = create_persistent_ds(num_versions);
     snprintf(initialized->versions[0].description, 100, "Base Version number: %d", 0);
     initialized->versions[0].structure_head = NULL;
     return initialized;
 }
 
-PersistentDS *initialize_stack_with_element(int elemVal, int num_versions, int num_buckets) {
-    PersistentDS *out = initialize_persistent_stack(num_versions, num_buckets);
+PersistentDS *initialize_stack_with_element(int elemVal, int num_versions) {
+    PersistentDS *out = initialize_persistent_stack(num_versions);
     out->versions[0].structure_head = createStackNode(elemVal,NULL);
     out->last_updated_version_number = 0;
     return out;
