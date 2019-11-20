@@ -37,7 +37,6 @@ PersistentDS *initialize_persistent_hashmap(int num_versions, int num_buckets) {
 }
 
 void add_to_hash(Map *structure, int bucket_num, int elemKey, int elemVal) {
-    structure->buckets[bucket_num].head;
     mapElem *newnode = createMapElem(elemKey, elemVal, structure->buckets[bucket_num].head);
     structure->buckets[bucket_num].head = newnode;
     structure->buckets[bucket_num].num_in_bucket++;
