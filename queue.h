@@ -17,7 +17,7 @@ typedef struct queue {
 PersistentDS *initialize_queue_with_element(int elemVal, int num_versions);
 void print_queue(PersistentDS *input, int version_num);
 void queue_enqueue(PersistentDS *input, int elemVal, int srcVersion);
-int queue_dequeue(PersistentDS *input, int elemVal, int srcVersion);
 int queue_front(PersistentDS *input, int srcVersion);
+int queue_dequeue(PersistentDS *input, int srcVersion);
 
 #endif //PERSISTENCEFOREXISTENCE_QUEUE_H

@@ -39,8 +39,15 @@ PersistentDS *initialize_persistent_queue(int num_versions) {
 
 void add_to_queue(Queue *qstruct, int elemVal) {
     qstruct->num_elements++;
+
     QueueNode *oldhead = qstruct->front;
-    QueueNode *newnode = createQueueElem(elemVal, oldhead);
+    QueueNode *newnode = createQueueElem(elemVal, NULL);
+    if(!oldhead){
+      qstruct->front = newnode;
+      qstruct->rear= newnode;
+    } else   {
+        newnode->next=oldhead;
+    }
     qstruct->front = newnode;
     return;
 }
@@ -49,7 +56,11 @@ void add_to_queue_end(Queue *qstruct, int elemVal) {
     qstruct->num_elements++;
     QueueNode *oldrear = qstruct->rear;
     QueueNode *newnode = createQueueElem(elemVal, NULL);
-    oldrear->next = newnode;
+    if(oldrear){
+        oldrear->next = newnode;
+    } else{
+        qstruct->front = newnode;
+    }
     qstruct->rear = newnode;
     return;
 }
@@ -74,15 +85,14 @@ void queueVersionCopy(PersistentDS *input, int srcVersion) {
 
 
     Queue *last_structure = input->versions[srcVersion].structure_head;
-
     Queue *current_structure = init_queue();
     input->versions[input->last_updated_version_number].structure_head = current_structure;
     current_structure->num_elements = 0;
-
     QueueNode *lastrover = last_structure->front;
     while (lastrover) {
         add_to_queue_end(current_structure, lastrover->value);
         lastrover = lastrover->next;
+
     }
 }
 
@@ -127,13 +137,12 @@ void queue_enqueue(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-
     queueVersionCopy(input, srcVersion);
     Queue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_queue_end(current_structure, elemVal);
 }
 
-int queue_dequeue(PersistentDS *input, int elemVal, int srcVersion) {
+int queue_dequeue(PersistentDS *input, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
         return INT_MIN;
