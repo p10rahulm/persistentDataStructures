@@ -212,10 +212,11 @@ void map_update(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
     }
     mapVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
-    mapElem *rover = current_structure->buckets[bucket_num].head;
+
+    rover = current_structure->buckets[bucket_num].head;
     while (rover) {
         if (rover->element_key == elemKey) {
-            rover->element_value = elemVal
+            rover->element_value = elemVal;
             return;
         }
         rover = rover->next;
@@ -223,7 +224,7 @@ void map_update(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
 
 }
 
-void map_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
+void map_delete(PersistentDS *input, int elemKeyToDelete, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
         return;
@@ -234,7 +235,7 @@ void map_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
         return;
     }
     Map *structure = input->versions[srcVersion].structure_head;
-    int bucket_num = getBucketNum(elemKey, structure->num_buckets);
+    int bucket_num = getBucketNum(elemKeyToDelete, structure->num_buckets);
     if (structure->buckets[bucket_num].num_in_bucket == 0) {
         printf("Please check the key entered. It wasn't found in the map.\n");
         return;
@@ -242,7 +243,7 @@ void map_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
     int found = 0;
     mapElem *rover = structure->buckets[bucket_num].head;
     while (rover) {
-        if (rover->element_key == elemKey) {
+        if (rover->element_key == elemKeyToDelete) {
             found =1;
             break;
         }
@@ -256,11 +257,11 @@ void map_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
 
     mapVersionCopy(input, srcVersion, input->last_updated_version_number + 1);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
-    mapElem *rover = current_structure->buckets[bucket_num].head;
+    rover = current_structure->buckets[bucket_num].head;
     mapElem *roverlast = NULL;
 
     while (rover) {
-        if (rover->element_key == elemKey) {
+        if (rover->element_key == elemKeyToDelete) {
             if(!roverlast){
                 current_structure->buckets[bucket_num].head = rover->next;
             } else {
