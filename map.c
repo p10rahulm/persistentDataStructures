@@ -30,6 +30,7 @@ Map* init_map(int num_buckets){
     return out;
 }
 
+
 PersistentDS *initialize_persistent_vector(int num_versions, int num_elements) {
     PersistentDS *initialized = create_persistent_ds(num_versions);
     snprintf(initialized->versions[0].description, 100, "Base Version number: %d", 0);
