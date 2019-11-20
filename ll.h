@@ -8,14 +8,8 @@ typedef struct listnode {
     struct listnode *next;
 } ListNode;
 
-ListNode *createListNode(int elemVal, ListNode *nextListNode) {
-    ListNode *out = calloc(1, sizeof(ListNode));
-    out->value = elemVal;
-    out->next = nextListNode;
-    return out;
-}
 
-initialize_sll_with_element(int elemVal, int num_versions);
+PersistentDS *initialize_sll_with_element(int elemVal, int num_versions);
 void print_sll(PersistentDS *input, int version_num);
 void sll_add(PersistentDS *input, int elemVal, int srcVersion);
 int sll_read(PersistentDS *input, int elemIndex, int srcVersion);

@@ -5,10 +5,6 @@
 
 #include "ll.h"
 
-typedef struct listnode {
-    int value;
-    struct listnode *next;
-} ListNode;
 
 ListNode *createListNode(int elemVal, ListNode *nextListNode) {
     ListNode *out = calloc(1, sizeof(ListNode));
@@ -20,7 +16,7 @@ ListNode *createListNode(int elemVal, ListNode *nextListNode) {
 PersistentDS *initialize_persistent_sll(int num_versions) {
     PersistentDS *initialized = create_persistent_ds(num_versions);
     snprintf(initialized->versions[0].description, 100, "Base Version number: %d", 0);
-    initialized->versions[0].structure_head = init_dequeue();
+    initialized->versions[0].structure_head = NULL;
     return initialized;
 }
 
@@ -41,9 +37,8 @@ void sllVersionCopy(PersistentDS *input, int srcVersion) {
     snprintf(input->versions[input->last_updated_version_number].description, 100, "Version Number: %d",
              input->last_updated_version_number);
 
-
     ListNode *last_structure = input->versions[srcVersion].structure_head;
-    ListNode *current_node,*current_prev;
+    ListNode *current_node=NULL,*current_prev = NULL;
     while (last_structure) {
         current_node = createListNode(last_structure->value,NULL);
         if(current_prev){
@@ -93,26 +88,26 @@ void sll_add(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-
     sllVersionCopy(input, srcVersion);
-    ListNode* lasthead =input->versions[input->last_updated_version_number].structure_head
-    input->versions[input->last_updated_version_number].structure_head = createListNode(elemVal,lasthead);
+    ListNode* lastHead =input->versions[input->last_updated_version_number].structure_head;
+    input->versions[input->last_updated_version_number].structure_head = createListNode(elemVal,lastHead);
 }
 
 int sll_read(PersistentDS *input, int elemIndex, int srcVersion) {
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
-        printf("Please check your Version number input\n");
+        printf("Please check your Version number input: %d\n",srcVersion);
         return INT_MIN;
     }
-    ListNode *rover = input->versions[input->last_updated_version_number].structure_head;
+    ListNode *rover = input->versions[srcVersion].structure_head;
+    int tempIndex = elemIndex;
     while (rover) {
-        if(elemIndex==0){
+        if(tempIndex==0){
             return rover->value;
         }
         rover = rover->next;
-        elemIndex--;
+        tempIndex--;
     }
-    printf("Please check the Index. It does not exist.\n");
+    printf("Please check the Index no %d. It does not exist.\n",elemIndex);
     return INT_MIN;
 }
 
