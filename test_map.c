@@ -33,7 +33,8 @@ int main(void) {
     readvalue = map_read(persistentMap, key, version);
     if(readvalue!=INT_MIN){        printf("The Value associated with key %d is %d\n",key,readvalue);    }
     //Update the map
-
+    map_update(persistentMap,5,30,3);
+    print_hash(persistentMap, 4);
 
 
 
