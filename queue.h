@@ -3,6 +3,7 @@
 
 #include "persistence.h"
 
+
 typedef struct queuenode {
     int value;
     struct queuenode *next;

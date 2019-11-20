@@ -2,18 +2,8 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "map.h"
+#include "queue.h"
 
-typedef struct queuenode {
-    int value;
-    struct queuenode *next;
-} QueueNode;
-
-typedef struct queue {
-    int num_elements;
-    QueueNode *front;
-    QueueNode *rear;
-} Queue;
 
 Queue *init_queue() {
     Queue *out = (Queue *) calloc(1, sizeof(Queue));
