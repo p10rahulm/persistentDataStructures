@@ -8,7 +8,7 @@
 void main() {
     int num_versions = 100;
     int num_elements = 5;
-    PersistentDS *vector = initialize_with_element(11, num_versions, num_elements);
+    PersistentDS *vector = initialize_vector_with_element(11, num_versions, num_elements);
     print_vector(vector, 0);
     vector_add(vector, 21, 0);
     print_vector(vector, 1);

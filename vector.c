@@ -16,7 +16,7 @@ PersistentDS *initialize_persistent_vector(int num_versions, int num_elements) {
     return initialized;
 }
 
-PersistentDS *initialize_with_element(int element, int num_versions, int num_elements) {
+PersistentDS *initialize_vector_with_element(int element, int num_versions, int num_elements) {
     PersistentDS *out = initialize_persistent_vector(num_versions, num_elements);
     Vector *structure = out->versions[0].structure_head;
     int *elements_array = structure->elements_array;

@@ -12,7 +12,7 @@ typedef struct vector {
 
 void print_vector(PersistentDS *input, int version_num);
 
-PersistentDS *initialize_with_element(int element, int num_versions, int num_elements);
+PersistentDS *initialize_vector_with_element(int element, int num_versions, int num_elements);
 void vector_add(PersistentDS *input, int element, int srcVersion);
 int vector_read(PersistentDS *input, int element_index, int srcVersion);
 void vector_update(PersistentDS *input, int index_to_update, int updated_element, int srcVersion);
