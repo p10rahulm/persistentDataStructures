@@ -44,8 +44,11 @@ void print_stack(PersistentDS *input, int version_num) {
 
 
     StackNode* structure = input->versions[version_num].structure_head;
+    if(structure){
+        printf("Stack Elements\t->\t");
+    }
     while(structure){
-        printf(" -> %d",structure->value);
+        printf("%d\t",structure->value);
         structure = structure->next;
     }
     printf("\n--------------------------------------------------------------------------------\n");
@@ -89,21 +92,22 @@ int stack_look(PersistentDS *input, int srcVersion) {
     return head->value;
 }
 
-void stack_pop(PersistentDS *input, int elemVal, int srcVersion) {
+int stack_pop(PersistentDS *input, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
-        return;
+        return INT_MIN;
     }
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
         printf("The version you want to change does not exist");
-        return;
+        return INT_MIN;
     }
 
     StackNode* last_structure = input->versions[srcVersion].structure_head;
     if(!last_structure){
-        printf("The Stack you chose is empty!\n");
-        return;
+        printf("The Stack you chose is empty! Cannot Pop any Element!\n");
+        return INT_MIN;
     }
     stackVersionCopy(input, srcVersion);
     input->versions[input->last_updated_version_number].structure_head = last_structure->next;
+    return last_structure->value;
 }
