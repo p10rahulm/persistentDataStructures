@@ -4,9 +4,9 @@
 #include "persistence.h"
 typedef struct bstNode {
     int value;
-    struct bstNode leftChild;
-    struct bstNode rightChild;
-    struct bstNode parent; //we store parent for easy traversal
+    struct bstNode* leftChild;
+    struct bstNode* rightChild;
+    struct bstNode* parent; //we store parent for easy traversal
 } BSTNode;
 
 
@@ -14,5 +14,6 @@ typedef struct bstNode {
 PersistentDS *initialize_BST_with_element(int elemVal, int num_versions);
 void print_bst(PersistentDS *input, int version_num);
 void bst_add(PersistentDS *input, int elemVal, int srcVersion);
-
+int bst_search(PersistentDS *input, int elemVal, int srcVersion);
+int bst_delete(PersistentDS *input, int elemVal, int srcVersion);
 #endif //PERSISTENCEFOREXISTENCE_BST_H
