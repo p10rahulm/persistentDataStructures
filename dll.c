@@ -6,8 +6,7 @@
 #include "dll.h"
 
 
-
-DLLNode* createDLLNode(int elemVal, DLLNode *prevDLLNode, DLLNode *nextDLLNode) {
+DLLNode *createDLLNode(int elemVal, DLLNode *prevDLLNode, DLLNode *nextDLLNode) {
     DLLNode *out = calloc(1, sizeof(DLLNode));
     out->value = elemVal;
     out->prev = prevDLLNode;
@@ -25,9 +24,9 @@ PersistentDS *initialize_persistent_dll(int num_versions) {
 PersistentDS *initialize_dll_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_dll(num_versions);
     out->versions[0].structure_head = calloc(1, sizeof(DLL));
-    DLL* structure =out->versions[0].structure_head;
+    DLL *structure = out->versions[0].structure_head;
     structure->num_elements = 1;
-    structure->head = createDLLNode(elemVal,NULL,NULL);
+    structure->head = createDLLNode(elemVal, NULL, NULL);
     structure->tail = structure->head;
     out->last_updated_version_number = 0;
     return out;
@@ -44,12 +43,12 @@ void dllVersionCopy(PersistentDS *input, int srcVersion) {
     DLL *last_structure = input->versions[srcVersion].structure_head;
     DLL *current_structure = calloc(1, sizeof(DLL));
     input->versions[input->last_updated_version_number].structure_head = current_structure;
-    DLLNode* last_node = last_structure->head;
-    DLLNode *current_node=NULL;
-    DLLNode* current_prev = NULL;
+    DLLNode *last_node = last_structure->head;
+    DLLNode *current_node = NULL;
+    DLLNode *current_prev = NULL;
     while (last_node) {
-        current_node = createDLLNode(last_node->value,NULL,NULL);
-        if(current_prev){
+        current_node = createDLLNode(last_node->value, NULL, NULL);
+        if (current_prev) {
             current_prev->next = current_node;
             current_node->prev = current_prev;
         } else {
@@ -82,7 +81,7 @@ void print_dll(PersistentDS *input, int version_num) {
     DLLNode *structure = DLL_Structure->head;
 
     if (structure) {
-        printf("No of elements: %d\n",DLL_Structure->num_elements);
+        printf("No of elements: %d\n", DLL_Structure->num_elements);
         printf("Doubly Linked List Elements:");
     }
     while (structure) {
@@ -103,11 +102,11 @@ void dll_add(PersistentDS *input, int elemVal, int srcVersion) {
         return;
     }
     dllVersionCopy(input, srcVersion);
-    DLL* structure =input->versions[input->last_updated_version_number].structure_head;
+    DLL *structure = input->versions[input->last_updated_version_number].structure_head;
     structure->num_elements += 1;
-    DLLNode* newNode = createDLLNode(elemVal,NULL,NULL);
+    DLLNode *newNode = createDLLNode(elemVal, NULL, NULL);
     newNode->next = structure->head;
-    if(newNode->next){
+    if (newNode->next) {
         newNode->next->prev = newNode;
     }
     structure->head = newNode;
@@ -115,24 +114,24 @@ void dll_add(PersistentDS *input, int elemVal, int srcVersion) {
 
 int dll_read(PersistentDS *input, int elemIndex, int srcVersion) {
     if (srcVersion > input->last_updated_version_number || srcVersion < 0) {
-        printf("Please check your Version number input: %d\n",srcVersion);
+        printf("Please check your Version number input: %d\n", srcVersion);
         return INT_MIN;
     }
-    DLL*currStructure = input->versions[srcVersion].structure_head;
-    if(currStructure->num_elements < elemIndex + 1){
-        printf("Please check the Index no %d. It does not exist.\n",elemIndex);
+    DLL *currStructure = input->versions[srcVersion].structure_head;
+    if (currStructure->num_elements < elemIndex + 1) {
+        printf("Please check the Index no %d. It does not exist.\n", elemIndex);
         return INT_MIN;
     }
     DLLNode *rover = currStructure->head;
     int tempIndex = elemIndex;
     while (rover) {
-        if(tempIndex==0){
+        if (tempIndex == 0) {
             return rover->value;
         }
         rover = rover->next;
         tempIndex--;
     }
-    printf("Error, Error! Index = %d, version = %d\n",elemIndex,srcVersion);
+    printf("Error, Error! Index = %d, version = %d\n", elemIndex, srcVersion);
     return INT_MIN;
 }
 
@@ -149,16 +148,16 @@ void dll_update(PersistentDS *input, int elemIndex, int elemVal, int srcVersion)
     }
     //Check if index found
     DLL *structure = input->versions[srcVersion].structure_head;
-    if(structure->num_elements < elemIndex + 1){
+    if (structure->num_elements < elemIndex + 1) {
         printf("Please check the Element Index. It does not exist.\n");
-        return ;
+        return;
     }
     dllVersionCopy(input, srcVersion);
-    DLL*currStructure = input->versions[input->last_updated_version_number].structure_head;
+    DLL *currStructure = input->versions[input->last_updated_version_number].structure_head;
     DLLNode *rover = currStructure->head;
     int tempIndex = elemIndex;
     while (rover) {
-        if(tempIndex==0){
+        if (tempIndex == 0) {
             rover->value = elemVal;
             return;
         }
@@ -179,21 +178,21 @@ int dll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
     }
     //Check if index found
     DLL *structure = input->versions[srcVersion].structure_head;
-    if(structure->num_elements < elemIndexToDelete + 1){
+    if (structure->num_elements < elemIndexToDelete + 1) {
         printf("Please check the Element Index. It does not exist.\n");
         return INT_MIN;
     }
     dllVersionCopy(input, srcVersion);
-    DLL*currStructure = input->versions[input->last_updated_version_number].structure_head;
+    DLL *currStructure = input->versions[input->last_updated_version_number].structure_head;
     DLLNode *rover = currStructure->head;
     DLLNode *rover_prev = NULL;
     int tempIndex = elemIndexToDelete;
     while (rover) {
-        if(tempIndex==0){
-            if(rover_prev==NULL){
+        if (tempIndex == 0) {
+            if (rover_prev == NULL) {
                 currStructure->head = rover->next;
-                if(currStructure->tail==rover){
-                    currStructure->tail=NULL;
+                if (currStructure->tail == rover) {
+                    currStructure->tail = NULL;
                 }
                 int out = rover->value;
                 free(rover);
@@ -201,11 +200,11 @@ int dll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
                 return out;
             } else {
                 rover_prev->next = rover->next;
-                if(rover->next){
+                if (rover->next) {
                     rover->next->prev = rover_prev;
                 }
-                if(currStructure->tail==rover){
-                    currStructure->tail=NULL;
+                if (currStructure->tail == rover) {
+                    currStructure->tail = NULL;
                 }
                 int out = rover->value;
                 free(rover);
