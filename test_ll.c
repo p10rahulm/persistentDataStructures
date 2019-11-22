@@ -35,10 +35,13 @@ int main(void) {
     sll_add(persistentLL,81,6);
     print_sll(persistentLL,7);
     //Test Delete
+    print_sll(persistentLL,7);
     sll_delete(persistentLL,1,7);
     print_sll(persistentLL,8);
     sll_delete(persistentLL,3,8);
     print_sll(persistentLL,9);
+    sll_delete(persistentLL,0,9);
+    print_sll(persistentLL,10);
     //Wrong Version
     sll_delete(persistentLL,3,12);
     //Wrong Index
