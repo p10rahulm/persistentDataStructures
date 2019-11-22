@@ -112,10 +112,18 @@ void cll_add(PersistentDS *input, int elemVal, int srcVersion) {
     structure->num_elements += 1;
     CLLNode *newNode = createCLLNode(elemVal, NULL, NULL);
     newNode->next = structure->head;
+
     if (newNode->next) {
+        newNode->prev = newNode->next->prev;
         newNode->next->prev = newNode;
+    } else {
+        newNode->prev = newNode;
+        newNode->next = newNode;
     }
     structure->head = newNode;
+    if(!structure->tail){
+        structure->tail = newNode;
+    }
 }
 
 int cll_read(PersistentDS *input, int elemIndex, int srcVersion) {

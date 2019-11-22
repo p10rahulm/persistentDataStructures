@@ -110,6 +110,9 @@ void dll_add(PersistentDS *input, int elemVal, int srcVersion) {
         newNode->next->prev = newNode;
     }
     structure->head = newNode;
+    if(!structure->tail){
+        structure->tail = newNode;
+    }
 }
 
 int dll_read(PersistentDS *input, int elemIndex, int srcVersion) {
