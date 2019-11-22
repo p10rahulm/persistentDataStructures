@@ -48,7 +48,8 @@ void cllVersionCopy(PersistentDS *input, int srcVersion) {
     CLLNode *last_node = last_structure->head;
     CLLNode *current_node = NULL;
     CLLNode *current_prev = NULL;
-    while (last_node) {
+    int roverIndex = last_structure->num_elements;
+    while (roverIndex) {
         current_node = createCLLNode(last_node->value, NULL, NULL);
         if (current_prev) {
             current_prev->next = current_node;
@@ -64,6 +65,7 @@ void cllVersionCopy(PersistentDS *input, int srcVersion) {
         current_structure->num_elements++;
         current_prev = current_node;
         last_node = last_node->next;
+        roverIndex--;
     }
 }
 
@@ -90,9 +92,11 @@ void print_cll(PersistentDS *input, int version_num) {
         printf("No of elements: %d\n", CLL_Structure->num_elements);
         printf("Circularly Linked List Elements:");
     }
-    while (structure) {
+    int roverIndex = CLL_Structure->num_elements;
+    while (roverIndex) {
         printf("\t%d\t", structure->value);
         structure = structure->next;
+        roverIndex--;
     }
     printf("\n--------------------------------------------------------------------------------\n");
 }
@@ -112,7 +116,6 @@ void cll_add(PersistentDS *input, int elemVal, int srcVersion) {
     structure->num_elements += 1;
     CLLNode *newNode = createCLLNode(elemVal, NULL, NULL);
     newNode->next = structure->head;
-
     if (newNode->next) {
         newNode->prev = newNode->next->prev;
         newNode->next->prev = newNode;
@@ -138,12 +141,14 @@ int cll_read(PersistentDS *input, int elemIndex, int srcVersion) {
     }
     CLLNode *rover = currStructure->head;
     int tempIndex = elemIndex;
-    while (rover) {
+    int roverIndex = currStructure->num_elements;
+    while (roverIndex) {
         if (tempIndex == 0) {
             return rover->value;
         }
         rover = rover->next;
         tempIndex--;
+        roverIndex--;
     }
     printf("Error, Error! Index = %d, version = %d\n", elemIndex, srcVersion);
     return INT_MIN;
@@ -170,13 +175,15 @@ void cll_update(PersistentDS *input, int elemIndex, int elemVal, int srcVersion)
     CLL *currStructure = input->versions[input->last_updated_version_number].structure_head;
     CLLNode *rover = currStructure->head;
     int tempIndex = elemIndex;
-    while (rover) {
+    int roverIndex = currStructure->num_elements;
+    while (roverIndex) {
         if (tempIndex == 0) {
             rover->value = elemVal;
             return;
         }
         rover = rover->next;
         tempIndex--;
+        roverIndex--;
     }
 }
 
@@ -201,7 +208,8 @@ int cll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
     CLLNode *rover = currStructure->head;
     CLLNode *rover_prev = NULL;
     int tempIndex = elemIndexToDelete;
-    while (rover) {
+    int roverIndex = currStructure->num_elements;
+    while (roverIndex) {
         if (tempIndex == 0) {
             if (rover_prev == NULL) {
                 currStructure->head = rover->next;
@@ -229,6 +237,7 @@ int cll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
         rover_prev = rover;
         rover = rover->next;
         tempIndex--;
+        roverIndex--;
     }
     return INT_MIN;
 }
