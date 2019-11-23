@@ -101,53 +101,57 @@ void print_version_graph(versionGraph *vg) {
 }
 
 versionIndex *get_parents_list(PersistentDS *inputDS, int version) {
-    versionIndex* head = createNewVersionIndex(version,NULL);
+    versionIndex *head = createNewVersionIndex(version, NULL);
     int versionRover = version;
-    while(inputDS->versions[versionRover].parent_version_number!=versionRover){
-        head = createNewVersionIndex(inputDS->versions[versionRover].parent_version_number,head);
-        versionRover =inputDS->versions[versionRover].parent_version_number;
+    while (inputDS->versions[versionRover].parent_version_number != versionRover) {
+        head = createNewVersionIndex(inputDS->versions[versionRover].parent_version_number, head);
+        versionRover = inputDS->versions[versionRover].parent_version_number;
     }
     return head;
 }
 
-void print_parents_list(versionIndex* parents_list,int version){
-    printf("The parents of %d are\t",version);
-    versionIndex* rover = parents_list;
-    while(rover){
-        printf("%d\t",rover->version);
+void print_parents_list(versionIndex *parents_list, int version) {
+    printf("The parents of %d are\t", version);
+    versionIndex *rover = parents_list;
+    while (rover) {
+        printf("%d\t", rover->version);
         rover = rover->next;
     }
     printf("\n");
 }
 
-void printVersionNodeInstruction(VersionNode* version_node){
-    if(version_node->instruction==ADD_INSTRUCTION){
-        printf("Add: %d\t",version_node->instruction_value);
+void printVersionNodeInstruction(VersionNode *version_node) {
+    if (version_node->instruction == ADD_INSTRUCTION) {
+        printf("Add: %d\t", version_node->instruction_value);
         return;
     }
-    if(version_node->instruction==UPDATE_INSTRUCTION){
-        printf("Updt: %d to %d\t",version_node->instruction_index,version_node->instruction_value);
+    if (version_node->instruction == UPDATE_INSTRUCTION) {
+        printf("Update: %d to %d\t", version_node->instruction_index, version_node->instruction_value);
         return;
     }
-    if(version_node->instruction==DELETE_INSTRUCTION){
+    if (version_node->instruction == DELETE_INSTRUCTION) {
         int delete_elem;
-        if(version_node->instruction_value){            delete_elem = version_node->instruction_value;        }
-        else {            delete_elem = version_node->instruction_index;        }
-        printf("Del: %d\t",delete_elem);
+        if (version_node->instruction_value) {
+            delete_elem = version_node->instruction_value;
+            printf("Delete Element: %d\t", delete_elem);
+        } else {
+            delete_elem = version_node->instruction_index;
+            printf("Delete Index: %d\t", delete_elem);
+        }
+
         return;
     }
 }
 
-void print_instruction_list(versionIndex* parents_list,int version,PersistentDS *inputDS){
-    printf("The instructions for %d are\t",version);
-    versionIndex* rover = parents_list;
-    while(rover){
+void print_instruction_list(versionIndex *parents_list, int version, PersistentDS *inputDS) {
+    printf("The instructions for %d are\t", version);
+    versionIndex *rover = parents_list;
+    while (rover) {
         int rover_version = rover->version;
-        VersionNode* version_node =  &inputDS->versions[rover_version];
-        printf("(%d)",rover_version);
+        VersionNode *version_node = &inputDS->versions[rover_version];
+        printf("(%d) ", rover_version);
         printVersionNodeInstruction(version_node);
         rover = rover->next;
     }
     printf("\n");
 }
-

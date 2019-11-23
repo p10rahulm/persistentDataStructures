@@ -68,8 +68,11 @@ PersistentDS *initialize_dequeue_with_element(int elemVal, int num_versions) {
 }
 
 
-void dequeueVersionCopy(PersistentDS *input, int srcVersion) {
+void dequeueVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -130,7 +133,7 @@ void dq_enqueue_front(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    dequeueVersionCopy(input, srcVersion);
+    dequeueVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,1);
     DeQueue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_dequeue(current_structure, elemVal);
 }
@@ -144,7 +147,7 @@ void dq_enqueue_rear(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    dequeueVersionCopy(input, srcVersion);
+    dequeueVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,-1);
     DeQueue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_dequeue_end(current_structure, elemVal);
 }
@@ -165,7 +168,7 @@ int dq_dequeue_front(PersistentDS *input, int srcVersion) {
         return INT_MIN;
     }
 
-    dequeueVersionCopy(input, srcVersion);
+    dequeueVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,1);
     DeQueue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     current_structure->num_elements--;
     DeQueueNode *currfront = current_structure->front;
@@ -196,7 +199,7 @@ int dq_dequeue_rear(PersistentDS *input, int srcVersion) {
         return INT_MIN;
     }
 
-    dequeueVersionCopy(input, srcVersion);
+    dequeueVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,-1);
     DeQueue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     current_structure->num_elements--;
 

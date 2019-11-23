@@ -36,8 +36,12 @@ PersistentDS *initialize_dll_with_element(int elemVal, int num_versions) {
 }
 
 
-void dllVersionCopy(PersistentDS *input, int srcVersion) {
+void dllVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
+
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
     input->versions[input->last_updated_version_number].time_of_last_access = time(0);
@@ -104,7 +108,7 @@ void dll_add(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    dllVersionCopy(input, srcVersion);
+    dllVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     DLL *structure = input->versions[input->last_updated_version_number].structure_head;
     structure->num_elements += 1;
     DLLNode *newNode = createDLLNode(elemVal, NULL, NULL);
@@ -158,7 +162,7 @@ void dll_update(PersistentDS *input, int elemIndex, int elemVal, int srcVersion)
         printf("Please check the Element Index. It does not exist.\n");
         return;
     }
-    dllVersionCopy(input, srcVersion);
+    dllVersionCopy(input, srcVersion,UPDATE_INSTRUCTION,elemVal,elemIndex);
     DLL *currStructure = input->versions[input->last_updated_version_number].structure_head;
     DLLNode *rover = currStructure->head;
     int tempIndex = elemIndex;
@@ -188,7 +192,7 @@ int dll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
         printf("Please check the Element Index. It does not exist.\n");
         return INT_MIN;
     }
-    dllVersionCopy(input, srcVersion);
+    dllVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,elemIndexToDelete);
     DLL *currStructure = input->versions[input->last_updated_version_number].structure_head;
     DLLNode *rover = currStructure->head;
     DLLNode *rover_prev = NULL;

@@ -117,8 +117,11 @@ BSTNode *copyThatTree(BSTNode *thatTreeRoot, BSTNode *thisTreeParent) {
     return out;
 }
 
-void BSTVersionCopy(PersistentDS *input, int srcVersion) {
+void BSTVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -229,7 +232,7 @@ void bst_add(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    BSTVersionCopy(input, srcVersion);
+    BSTVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     BSTNode *currRoot = input->versions[input->last_updated_version_number].structure_head;
     if (currRoot) {
         addValuetoBST(currRoot, elemVal);
@@ -291,7 +294,7 @@ int bst_delete(PersistentDS *input, int elemVal, int srcVersion) {
         return 0;
     }
     if(bst_search(input, elemVal, srcVersion)){
-        BSTVersionCopy(input, srcVersion);
+        BSTVersionCopy(input, srcVersion,DELETE_INSTRUCTION,elemVal,0);
         BSTNode *currRoot = input->versions[input->last_updated_version_number].structure_head;
         if(!currRoot){ return 0;}
         if(currRoot->value==elemVal){

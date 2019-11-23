@@ -53,8 +53,11 @@ void print_vector(PersistentDS *input, int version_num) {
 }
 
 
-void vectorVersionCopy(PersistentDS *input, int srcVersion) {
+void vectorVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -79,7 +82,7 @@ void vectorVersionCopy(PersistentDS *input, int srcVersion) {
 }
 
 
-void vector_add(PersistentDS *input, int element, int srcVersion) {
+void vector_add(PersistentDS *input, int elemVal, int srcVersion) {
     if (input->num_versions == input->last_updated_version_number + 1) {
         printf("You have reached the limit of number of versions you can create");
         return;
@@ -95,11 +98,11 @@ void vector_add(PersistentDS *input, int element, int srcVersion) {
         return;
     }
 
-    vectorVersionCopy(input, srcVersion);
+    vectorVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
     current_structure->last_index++;
-    current_elem_array[current_structure->last_index] = element;
+    current_elem_array[current_structure->last_index] = elemVal;
 }
 
 int vector_read(PersistentDS *input, int element_index, int srcVersion) {
@@ -134,7 +137,7 @@ void vector_update(PersistentDS *input, int index_to_update, int updated_element
         return;
     }
 
-    vectorVersionCopy(input, srcVersion);
+    vectorVersionCopy(input, srcVersion,UPDATE_INSTRUCTION,updated_element,index_to_update);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
 
@@ -157,7 +160,7 @@ void vector_delete(PersistentDS *input, int index_to_delete, int srcVersion) {
         return;
     }
 
-    vectorVersionCopy(input, srcVersion);
+    vectorVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,index_to_delete);
     Vector *current_structure = input->versions[input->last_updated_version_number].structure_head;
     int *current_elem_array = current_structure->elements_array;
 

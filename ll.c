@@ -31,8 +31,11 @@ PersistentDS *initialize_sll_with_element(int elemVal, int num_versions) {
 }
 
 
-void sllVersionCopy(PersistentDS *input, int srcVersion) {
+void sllVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -91,7 +94,7 @@ void sll_add(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    sllVersionCopy(input, srcVersion);
+    sllVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     ListNode* lastHead =input->versions[input->last_updated_version_number].structure_head;
     input->versions[input->last_updated_version_number].structure_head = createListNode(elemVal,lastHead);
 }
@@ -141,7 +144,7 @@ void sll_update(PersistentDS *input, int elemIndex, int elemVal, int srcVersion)
         printf("Please check the Element Index. It does not exist.\n");
         return ;
     }
-    sllVersionCopy(input, srcVersion);
+    sllVersionCopy(input, srcVersion,UPDATE_INSTRUCTION,elemVal,elemIndex);
     rover = input->versions[input->last_updated_version_number].structure_head;
     tempIndex = elemIndex;
     while (rover) {
@@ -181,7 +184,7 @@ int sll_delete(PersistentDS *input, int elemIndexToDelete, int srcVersion) {
         return INT_MIN;
     }
     //Found
-    sllVersionCopy(input, srcVersion);
+    sllVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,elemIndexToDelete);
     rover = input->versions[input->last_updated_version_number].structure_head;
     tempIndex = elemIndexToDelete;
     ListNode* rover_prev = NULL;

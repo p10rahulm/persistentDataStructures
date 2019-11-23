@@ -57,8 +57,11 @@ PersistentDS *initialize_map_with_element(int elemKey, int elemVal, int num_vers
 }
 
 
-void mapVersionCopy(PersistentDS *input, int srcVersion) {
+void mapVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -156,7 +159,7 @@ void map_add(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
         return;
     }
 
-    mapVersionCopy(input, srcVersion);
+    mapVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,elemKey);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_hash(current_structure, bucket_index, elemKey, elemVal);
 
@@ -215,7 +218,7 @@ void map_update(PersistentDS *input, int elemKey, int elemVal, int srcVersion) {
         printf("Please check the key entered. It wasn't found in the map.\n");
         return;
     }
-    mapVersionCopy(input, srcVersion);
+    mapVersionCopy(input, srcVersion,UPDATE_INSTRUCTION,elemVal,elemKey);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
 
     rover = current_structure->buckets[bucket_num].head;
@@ -260,7 +263,7 @@ void map_delete(PersistentDS *input, int elemKeyToDelete, int srcVersion) {
     }
 
 
-    mapVersionCopy(input, srcVersion);
+    mapVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,elemKeyToDelete);
     Map *current_structure = input->versions[input->last_updated_version_number].structure_head;
     rover = current_structure->buckets[bucket_num].head;
     mapElem *roverlast = NULL;

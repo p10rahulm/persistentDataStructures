@@ -57,8 +57,11 @@ void print_stack(PersistentDS *input, int version_num) {
     printf("\n--------------------------------------------------------------------------------\n");
 }
 
-void stackVersionCopy(PersistentDS *input, int srcVersion) {
+void stackVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -80,7 +83,7 @@ void stack_push(PersistentDS *input, int elemVal, int srcVersion) {
     }
 
     StackNode* last_structure = input->versions[srcVersion].structure_head;
-    stackVersionCopy(input, srcVersion);
+    stackVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     StackNode* newnode = createStackNode(elemVal,last_structure);
     input->versions[input->last_updated_version_number].structure_head = newnode;
 }
@@ -110,7 +113,7 @@ int stack_pop(PersistentDS *input, int srcVersion) {
         printf("The Stack you chose is empty! Cannot Pop any Element!\n");
         return INT_MIN;
     }
-    stackVersionCopy(input, srcVersion);
+    stackVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,1);
     input->versions[input->last_updated_version_number].structure_head = last_structure->next;
     return last_structure->value;
 }

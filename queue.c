@@ -67,8 +67,11 @@ PersistentDS *initialize_queue_with_element(int elemVal, int num_versions) {
 }
 
 
-void queueVersionCopy(PersistentDS *input, int srcVersion) {
+void queueVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -130,7 +133,7 @@ void queue_enqueue(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    queueVersionCopy(input, srcVersion);
+    queueVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,-1);
     Queue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     add_to_queue_end(current_structure, elemVal);
 }
@@ -151,14 +154,14 @@ int queue_dequeue(PersistentDS *input, int srcVersion) {
         return INT_MIN;
     }
 
-    queueVersionCopy(input, srcVersion);
+    queueVersionCopy(input, srcVersion,DELETE_INSTRUCTION,0,1);
     Queue *current_structure = input->versions[input->last_updated_version_number].structure_head;
     current_structure->num_elements--;
-    QueueNode* currfront = current_structure->front;
-    current_structure->front = currfront->next;
+    QueueNode* currFront = current_structure->front;
+    current_structure->front = currFront->next;
     if(!current_structure->front){        current_structure->rear=NULL;    }
-    int out = currfront->value;
-    free(currfront);
+    int out = currFront->value;
+    free(currFront);
     return out;
 }
 
