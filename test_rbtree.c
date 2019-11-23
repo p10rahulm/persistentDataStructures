@@ -85,4 +85,5 @@ void main() {
             printf("%d is not part of the Red Black Tree. Nothing to delete\n", numberToDelete);
         }
     }
+    print_version_graph(generate_version_graph(persistentRBTree));
 }

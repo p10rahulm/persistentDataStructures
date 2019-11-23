@@ -53,3 +53,46 @@ void printVersionNodeDetails(VersionNode *inputVersion) {
     printtime(inputVersion->time_of_last_access);
     printf("Parent Version Number : %d\n", inputVersion->parent_version_number);
 }
+
+
+
+VersionIndex* createNewVersionIndex(int version, VersionIndex* next){
+    VersionIndex* newIndex = calloc(1, sizeof(VersionIndex));
+    newIndex->version = version;
+    newIndex->next = next;
+    return newIndex;
+}
+
+void add_to_parent(int version,int parent_version,versionGraph* vg){
+    vg->childVersionArray[parent_version].num_children++;
+    VersionIndex* newIndex = createNewVersionIndex(version, vg->childVersionArray[parent_version].head);
+    vg->childVersionArray[parent_version].head = newIndex;
+}
+void add_to_version_graph(versionGraph* vg,PersistentDS * pds){
+    num_versions = pds->last_updated_version_number+1;
+    for (int i = 0; i < num_versions; ++i) {
+        add_to_parent(i,pds->versions[i].parent_version_number,vg);
+    }
+}
+
+versionGraph* generate_version_graph(PersistentDS * inputDS) {
+    versionGraph* out = calloc(1, sizeof(versionGraph));
+    out->num_versions = inputDS->last_updated_version_number+1;
+    out->childVersionArray = calloc(out->num_versions, sizeof(childVersions));
+    add_to_version_graph(out,inputDS);
+    return out;
+}
+
+void print_version_graph(versionGraph * vg) {
+    printf("Version\t||\tChildren--->\n")
+    for (int i = 0; i < vg->num_versions; ++i) {
+        printf("%d\t||\t",i);
+        VersionIndex* rover = vg->childVersionArray[i].head;
+        while(rover){
+            printf("%d\t",rover->version);
+            rover=rover->next;
+        }
+        printf("\n");
+    }
+}
+

@@ -24,5 +24,23 @@ void printtime(time_t inputtime);
 void printVersionNodeDetails(VersionNode *inputVersion);
 
 
+typedef struct version_index{
+    int version;
+    struct version_index* next;
+}VersionIndex;
+
+typedef struct child_versions{
+    int num_children;
+    versionIndex* head;
+} childVersions;
+
+typedef struct version_graph{
+    int num_versions;
+    childVersions* childVersionArray;
+} versionGraph;
+
+versionGraph* generate_version_graph(PersistentDS * inputDS);
+void print_version_graph(versionGraph * vg);
+
 
 #endif //PERSISTENCEFOREXISTENCE_PERSISTENCE_H
