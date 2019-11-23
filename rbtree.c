@@ -101,8 +101,8 @@ void red_black_insert(int elemVal, RBTree *tree) {
         pre_rover->rightChild = newNode;
     }
     newNode->parent = pre_rover;
-    red_black_insert_fixup(newNode, tree);
     tree->num_elements++;
+    red_black_insert_fixup(newNode, tree);
 }
 
 
@@ -448,7 +448,7 @@ void RBTreeVersionCopy(PersistentDS *input, int srcVersion) {
     if (last_tree->root) {
         curr_tree->root = copyThatTreeRec(last_tree->root, NULL);
     }
-
+    curr_tree->num_elements = last_tree->num_elements;
     input->versions[input->last_updated_version_number].structure_head = curr_tree;
 }
 
