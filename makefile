@@ -1,7 +1,7 @@
-all : persistence.out test_bst.out test_cll.out test_deque.out test_dll.out test_ll.out test_map.out test_queue.out test_rbtree.out test_stack.out test_vector.out
+all : genomeApplication.out test_bst.out test_cll.out test_deque.out test_dll.out test_ll.out test_map.out test_queue.out test_rbtree.out test_stack.out test_vector.out
 
-persistence.out:  main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
-	gcc -o persistence.out main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
+genomeApplication.out:  genomeInterface.o genomeApplication.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
+	gcc -o genomeApplication.out genomeInterface.o genomeApplication.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
 
 test_bst.out: test_bst.o bst.o persistence.o
 	gcc -o test_bst.out test_bst.o bst.o persistence.o
@@ -34,8 +34,11 @@ test_vector.out: test_vector.o vector.o persistence.o
 	gcc -o test_vector.out test_vector.o vector.o persistence.o
 
 # now for the dependancies for the above executables
-main.o: main.c main.h
-	gcc -c main.c
+genomeInterface.o: genomeInterface.c genomeApplication.h
+	gcc -c genomeInterface.c
+
+genomeApplication.o: genomeApplication.c genomeApplication.h
+	gcc -c genomeApplication.c
 
 persistence.o: persistence.c persistence.h
 	gcc -c persistence.c

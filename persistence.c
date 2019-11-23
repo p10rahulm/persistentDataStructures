@@ -13,7 +13,6 @@
  * Persistence would be through a version graph.
 */
 
-
 VersionNode *initialize_versions(int num_versions) {
     VersionNode *versions = (VersionNode *) calloc(num_versions, sizeof(VersionNode));
     for (int i = 0; i < num_versions; ++i) {
