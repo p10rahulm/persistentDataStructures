@@ -50,4 +50,12 @@ int main(void) {
     map_delete(persistentMap,5,7);
     print_hash(persistentMap, 8);
 
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentMap);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentMap,7);
+    print_parents_list(parents_list,7);
+    print_instruction_list(parents_list,7,persistentMap);
+
+
 }

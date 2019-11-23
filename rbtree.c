@@ -418,6 +418,8 @@ PersistentDS *initialize_RBTree_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_RBTree(num_versions);
     RBTree *structure = createNewEmptyTree();
     out->versions[0].structure_head = structure;
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
     red_black_insert(elemVal, structure);
     out->last_updated_version_number = 0;
     return out;
@@ -434,8 +436,11 @@ RBTreeNode *copyThatTreeRec(RBTreeNode *thatTreeRoot, RBTreeNode *thisTreeParent
     return out;
 }
 
-void RBTreeVersionCopy(PersistentDS *input, int srcVersion) {
+void RBTreeVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;
+    input->versions[input->last_updated_version_number].instruction = instruction;
+    input->versions[input->last_updated_version_number].instruction_value = elemValue;
+    input->versions[input->last_updated_version_number].instruction_index = elemIndex;
 
     input->versions[input->last_updated_version_number].parent_version_number = srcVersion;
     input->versions[input->last_updated_version_number].time_of_last_update = time(0);
@@ -485,7 +490,7 @@ void rbTreeAdd(PersistentDS *input, int elemVal, int srcVersion) {
         printf("The version you want to change does not exist");
         return;
     }
-    RBTreeVersionCopy(input, srcVersion);
+    RBTreeVersionCopy(input, srcVersion,ADD_INSTRUCTION,elemVal,0);
     RBTree *tree = input->versions[input->last_updated_version_number].structure_head;
     red_black_insert(elemVal, tree);
 }
@@ -519,7 +524,7 @@ int rbTree_delete(PersistentDS *input, int elemVal, int srcVersion) {
         return 0;
     }
     if (rbTree_search(input, elemVal, srcVersion)) {
-        RBTreeVersionCopy(input, srcVersion);
+        RBTreeVersionCopy(input, srcVersion,DELETE_INSTRUCTION,elemVal,0);
         RBTree *tree = input->versions[input->last_updated_version_number].structure_head;
         if (!tree->root) { return 0; }
         red_black_delete(tree_search(elemVal,tree),tree);

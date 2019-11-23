@@ -67,4 +67,12 @@ int main(void) {
         print_queue(persistentQueue,version+1);
     }
 
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentQueue);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentQueue,6);
+    print_parents_list(parents_list,6);
+    print_instruction_list(parents_list,6,persistentQueue);
+
+
 }

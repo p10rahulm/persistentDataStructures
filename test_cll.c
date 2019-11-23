@@ -54,4 +54,12 @@ int main(void) {
     print_cll(persistentCLL,12);
     cll_delete(persistentCLL,0,12);
 
+
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentCLL);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentCLL,12);
+    print_parents_list(parents_list,12);
+    print_instruction_list(parents_list,12,persistentCLL);
+
 }

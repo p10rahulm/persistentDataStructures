@@ -85,5 +85,12 @@ void main() {
             printf("%d is not part of the Red Black Tree. Nothing to delete\n", numberToDelete);
         }
     }
-    print_version_graph(generate_version_graph(persistentRBTree));
+
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentRBTree);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentRBTree,10);
+    print_parents_list(parents_list,10);
+    print_instruction_list(parents_list,10,persistentRBTree);
+
 }

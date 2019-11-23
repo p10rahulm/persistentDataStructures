@@ -57,4 +57,11 @@ int main(void) {
     print_bst(persistentBST, 11);
 
 
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentBST);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentBST,10);
+    print_parents_list(parents_list,10);
+    print_instruction_list(parents_list,10,persistentBST);
+
 }

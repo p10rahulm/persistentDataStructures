@@ -48,4 +48,11 @@ int main(void) {
     popped = stack_pop(persistentStack,9);
     if(popped!=INT_MIN){printf("The popped element is %d", popped);}
     print_stack(persistentStack,10);
+
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentStack);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentStack,9);
+    print_parents_list(parents_list,9);
+    print_instruction_list(parents_list,9,persistentStack);
 }

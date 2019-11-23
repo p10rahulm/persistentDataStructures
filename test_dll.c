@@ -54,4 +54,10 @@ int main(void) {
     print_dll(persistentDLL,12);
     dll_delete(persistentDLL,0,12);
 
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentDLL);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentDLL,12);
+    print_parents_list(parents_list,12);
+    print_instruction_list(parents_list,12,persistentDLL);
 }

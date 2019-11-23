@@ -3,34 +3,34 @@ all : persistence.out test_bst.out test_cll.out test_deque.out test_dll.out test
 persistence.out:  main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
 	gcc -o persistence.out main.o persistence.o bst.o cll.o deque.o dll.o ll.o map.o queue.o rbtree.o stack.o vector.o
 
-test_bst.out: test_bst.o bst.o
+test_bst.out: test_bst.o bst.o persistence.o
 	gcc -o test_bst.out test_bst.o bst.o persistence.o
 
-test_cll.out: test_cll.o cll.o
+test_cll.out: test_cll.o cll.o persistence.o
 	gcc -o test_cll.out test_cll.o cll.o persistence.o
 
-test_deque.out: test_deque.o deque.o
+test_deque.out: test_deque.o deque.o persistence.o
 	gcc -o test_deque.out test_deque.o deque.o persistence.o
 
-test_dll.out: test_dll.o dll.o
+test_dll.out: test_dll.o dll.o persistence.o
 	gcc -o test_dll.out test_dll.o dll.o persistence.o
 
-test_ll.out: test_ll.o ll.o
+test_ll.out: test_ll.o ll.o persistence.o
 	gcc -o test_ll.out test_ll.o ll.o persistence.o
 
-test_map.out: test_map.o map.o
+test_map.out: test_map.o map.o persistence.o
 	gcc -o test_map.out test_map.o map.o persistence.o
 
-test_queue.out: test_queue.o queue.o
+test_queue.out: test_queue.o queue.o persistence.o
 	gcc -o test_queue.out test_queue.o queue.o persistence.o
 
-test_rbtree.out: test_rbtree.o rbtree.o
+test_rbtree.out: test_rbtree.o rbtree.o persistence.o
 	gcc -o test_rbtree.out test_rbtree.o rbtree.o persistence.o
 
-test_stack.out: test_stack.o stack.o
+test_stack.out: test_stack.o stack.o persistence.o
 	gcc -o test_stack.out test_stack.o stack.o persistence.o
 
-test_vector.out: test_vector.o vector.o
+test_vector.out: test_vector.o vector.o persistence.o
 	gcc -o test_vector.out test_vector.o vector.o persistence.o
 
 # now for the dependancies for the above executables

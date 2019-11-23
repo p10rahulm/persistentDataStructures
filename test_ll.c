@@ -46,4 +46,12 @@ int main(void) {
     sll_delete(persistentLL,3,12);
     //Wrong Index
     sll_delete(persistentLL,3,9);
+
+
+    printf("\n");
+    versionGraph* versionG = generate_version_graph(persistentLL);
+    print_version_graph(versionG);
+    versionIndex *parents_list =get_parents_list(persistentLL,10);
+    print_parents_list(parents_list,10);
+    print_instruction_list(parents_list,10,persistentLL);
 }
