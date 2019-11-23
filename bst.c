@@ -131,7 +131,7 @@ void BSTVersionCopy(PersistentDS *input, int srcVersion) {
 
 
 //BELOW FUNCTION FOR PRINTING TREE TAKEN FROM STACKOVERFLOW: Copyright "user1571409"
-int printTreeRecursive(BSTNode *tree, int is_left, int offset, int depth, char s[20][255]) {
+int printBSTTreeRecursive(BSTNode *tree, int is_left, int offset, int depth, char s[20][255]) {
     char b[20];
     int width = 5;
 
@@ -139,8 +139,8 @@ int printTreeRecursive(BSTNode *tree, int is_left, int offset, int depth, char s
 
     sprintf(b, "(%03d)", tree->value);
 
-    int left = printTreeRecursive(tree->leftChild, 1, offset, depth + 1, s);
-    int right = printTreeRecursive(tree->rightChild, 0, offset + left + width, depth + 1, s);
+    int left = printBSTTreeRecursive(tree->leftChild, 1, offset, depth + 1, s);
+    int right = printBSTTreeRecursive(tree->rightChild, 0, offset + left + width, depth + 1, s);
 
 #ifdef COMPACT
     for (int i = 0; i < width; i++)
@@ -186,12 +186,12 @@ int printTreeRecursive(BSTNode *tree, int is_left, int offset, int depth, char s
 }
 
 //BELOW FUNCTION FOR PRINTING TREE TAKEN FROM STACKOVERFLOW: Copyright "user1571409"
-void printTree(BSTNode *tree) {
+void printBSTTree(BSTNode *tree) {
     char s[20][255];
     for (int i = 0; i < 20; i++)
         sprintf(s[i], "%80s", " ");
 
-    printTreeRecursive(tree, 0, 0, 0, s);
+    printBSTTreeRecursive(tree, 0, 0, 0, s);
 
     for (int i = 0; i < 5; i++)
         printf("%s\n", s[i]);
@@ -212,7 +212,7 @@ void print_bst(PersistentDS *input, int version_num) {
     printVersionNodeDetails(requiredVersion);
 
     BSTNode *root = requiredVersion->structure_head;
-    printTree(root);
+    printBSTTree(root);
     printf("\n--------------------------------------------------------------------------------\n");
 }
 
