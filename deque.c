@@ -59,6 +59,9 @@ void add_to_dequeue_end(DeQueue *dqstruct, int elemVal) {
 PersistentDS *initialize_dequeue_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_dequeue(num_versions);
     DeQueue *structure = out->versions[0].structure_head;
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     add_to_dequeue(structure, elemVal);
     out->last_updated_version_number = 0;
     return out;

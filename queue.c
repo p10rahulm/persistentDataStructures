@@ -58,6 +58,9 @@ void add_to_queue_end(Queue *qstruct, int elemVal) {
 PersistentDS *initialize_queue_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_queue(num_versions);
     Queue *structure = out->versions[0].structure_head;
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     add_to_queue(structure, elemVal);
     out->last_updated_version_number = 0;
     return out;

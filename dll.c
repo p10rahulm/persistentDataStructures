@@ -25,6 +25,9 @@ PersistentDS *initialize_dll_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_dll(num_versions);
     out->versions[0].structure_head = calloc(1, sizeof(DLL));
     DLL *structure = out->versions[0].structure_head;
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     structure->num_elements = 1;
     structure->head = createDLLNode(elemVal, NULL, NULL);
     structure->tail = structure->head;

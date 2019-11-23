@@ -95,6 +95,9 @@ PersistentDS *initialize_persistent_BST(int num_versions) {
 PersistentDS *initialize_BST_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_BST(num_versions);
     out->versions[0].structure_head = createBSTNode(elemVal, NULL, NULL, NULL);
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     BSTNode *structure = out->versions[0].structure_head;
     structure->parent = structure;
     out->last_updated_version_number = 0;

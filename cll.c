@@ -24,6 +24,9 @@ PersistentDS *initialize_persistent_cll(int num_versions) {
 PersistentDS *initialize_cll_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_cll(num_versions);
     out->versions[0].structure_head = calloc(1, sizeof(CLL));
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     CLL *structure = out->versions[0].structure_head;
     structure->num_elements = 1;
     structure->head = createCLLNode(elemVal, NULL, NULL);

@@ -23,6 +23,9 @@ PersistentDS *initialize_persistent_sll(int num_versions) {
 PersistentDS *initialize_sll_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_sll(num_versions);
     out->versions[0].structure_head = createListNode(elemVal, NULL);
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     out->last_updated_version_number = 0;
     return out;
 }

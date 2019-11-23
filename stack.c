@@ -24,6 +24,9 @@ PersistentDS *initialize_persistent_stack(int num_versions) {
 PersistentDS *initialize_stack_with_element(int elemVal, int num_versions) {
     PersistentDS *out = initialize_persistent_stack(num_versions);
     out->versions[0].structure_head = createStackNode(elemVal,NULL);
+    out->versions[0].instruction=ADD_INSTRUCTION;
+    out->versions[0].instruction_value = elemVal;
+
     out->last_updated_version_number = 0;
     return out;
 }
