@@ -10,44 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65516817-5067-4be4-bf35-df5f5d66045c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/genomeApplication.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genomeApplication.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/genomeInterface.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bst.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deque.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistence.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/queue.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rbtree.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stack.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_bst.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_bst.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cll.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_deque.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_deque.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_dll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_dll.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_ll.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_ll.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_map.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_map.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_queue.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_queue.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_rbtree.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_rbtree.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_stack.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_stack.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_vector.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vector.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/dll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/dll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dll.o" beforeDir="false" afterPath="$PROJECT_DIR$/dll.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeApplication.c" beforeDir="false" afterPath="$PROJECT_DIR$/genomeApplication.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeApplication.h" beforeDir="false" afterPath="$PROJECT_DIR$/genomeApplication.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeApplication.o" beforeDir="false" afterPath="$PROJECT_DIR$/genomeApplication.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeApplication.out" beforeDir="false" afterPath="$PROJECT_DIR$/genomeApplication.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeInterface.c" beforeDir="false" afterPath="$PROJECT_DIR$/genomeInterface.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genomeInterface.o" beforeDir="false" afterPath="$PROJECT_DIR$/genomeInterface.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_dll.out" beforeDir="false" afterPath="$PROJECT_DIR$/test_dll.out" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +78,7 @@
       <workItem from="1572961033520" duration="859000" />
       <workItem from="1573223550039" duration="1607000" />
       <workItem from="1573269752040" duration="17298000" />
-      <workItem from="1574051524564" duration="134829000" />
+      <workItem from="1574051524564" duration="153320000" />
     </task>
     <servers />
   </component>

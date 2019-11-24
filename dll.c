@@ -35,6 +35,23 @@ PersistentDS *initialize_dll_with_element(int elemVal, int num_versions) {
     return out;
 }
 
+void initialize_latest_version_of_dll_with_element(PersistentDS* input, int elemVal) {
+    input->last_updated_version_number++;
+    int current_version_number = input->last_updated_version_number;
+    input->versions[current_version_number].instruction = ADD_INSTRUCTION;
+    input->versions[current_version_number].instruction_value = elemVal;
+    input->versions[current_version_number].instruction_index = 0;
+
+    input->versions[current_version_number].parent_version_number = current_version_number;
+    input->versions[current_version_number].time_of_last_update = time(0);
+    input->versions[current_version_number].time_of_last_access = time(0);
+    snprintf(input->versions[current_version_number].description, 100, "Version Number: %d",current_version_number);
+    DLL *current_structure = calloc(1, sizeof(DLL));
+    input->versions[current_version_number].structure_head = current_structure;
+    current_structure->num_elements =1;
+    current_structure->head = createDLLNode(elemVal, NULL, NULL);
+    current_structure->tail = current_structure->head;
+}
 
 void dllVersionCopy(PersistentDS *input, int srcVersion,int instruction, int elemValue,int elemIndex) {
     input->last_updated_version_number++;

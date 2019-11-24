@@ -17,6 +17,7 @@ typedef struct DLL {
 } DLL;
 
 PersistentDS *initialize_dll_with_element(int elemVal, int num_versions);
+void initialize_latest_version_of_dll_with_element(PersistentDS* input, int elemVal);
 void print_dll(PersistentDS *input, int version_num);
 
 void dll_add(PersistentDS *input, int elemVal, int srcVersion);
